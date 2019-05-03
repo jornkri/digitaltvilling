@@ -32,6 +32,11 @@
         }
     </style>
 
+    <body>
+        <div id="viewDiv"></div>
+        </div>
+    </body>
+
     <script>
         require([
                 "esri/Map",
@@ -39,15 +44,17 @@
                 "esri/views/SceneView",
                 "esri/Basemap",
                 "esri/layers/Layer",
+                "esri/layers/FeatureLayer",
                 "esri/layers/ElevationLayer",
                 "esri/layers/GraphicsLayer",
                 "esri/widgets/Sketch/SketchViewModel",
                 "esri/symbols/WebStyleSymbol",
                 "esri/views/layers/support/FeatureFilter",
                 "esri/geometry/geometryEngine",
-                "esri/Graphic"
+                "esri/Graphic",
+                "esri/renderers/ClassBreaksRenderer"
             ],
-            function(Map, WebScene, SceneView, Basemap, Layer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter) {
+            function(Map, WebScene, SceneView, Basemap, Layer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer) {
                 var basemap = new Basemap({
                     portalItem: {
                         id: "ea53f092fa654ad08eb88067cd73c56a" // gråtone
@@ -64,10 +71,10 @@
 
                 var map = new Map({
                     basemap: basemap,
-                    ground: "world-elevation",
-                    layers: [gLayer],
+                    //ground: "world-elevation",
+                    layers: [],
                     ground: {
-                        surfaceColor: "#FCFCFC"
+                        surfaceColor: "#2A282B"
                     }
                 });
                 map.ground.layers.add(elevLyr);
@@ -79,12 +86,12 @@
                     environment: {
                         background: {
                             type: "color", // autocasts as new ColorBackground()
-                            color: "#FCFCFC"
+                            color: "#2A282B"
                         },
                         // disable stars
                         starsEnabled: false,
                         //disable atmosphere
-                        atmosphereEnabled: true
+                        atmosphereEnabled: false
                     },
                     center: {
                         x: 256924.68078,
@@ -95,6 +102,8 @@
 
                 });
 
+                //-----------------------LAG------------------------------------------------------
+
                 Layer.fromPortalItem({
                         portalItem: {
                             // Legg til bygg
@@ -104,9 +113,128 @@
                     .then(addLayer)
                     .catch(rejection);
 
+                const DistTech_test = new FeatureLayer({
+                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28Digitaltvilling_rom/FeatureServer/1",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: polyrend,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "relative-to-ground"
+                                //offset: 210.5
+                        },
+
+                    }
+                    .then(addLayer)
+                    .catch(rejection)
+                );
+
+
+                //-------------------RENDERS------------------------------------------------------
+
+
+                var polyrend = {
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#4286f4"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                };
+
+
+                var FlateRendererDistTech = new ClassBreaksRenderer({
+                    // type: "class-breaks",
+                    // attribute of interest - Earthquake magnitude
+                    valueExpression: "if ( $feature.ETASJE_TOPOLOGISK == 2) {return 0} else {return $feature.Temp}"
+                });
+                // All features with magnitude between 0 - 4.0
+                FlateRendererDistTech.addClassBreakInfo({
+                    minValue: 0.0,
+                    maxValue: 1.0,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#4286f4"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
+
+                FlateRendererDistTech.addClassBreakInfo({
+                    minValue: 1.0,
+                    maxValue: 1.75,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#ec1d23"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
+                // All features with magnitude between 4.1 - 7.0
+                FlateRendererDistTech.addClassBreakInfo({
+                    minValue: 1.76,
+                    maxValue: 2.5,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#f37b7d"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
+
+                FlateRendererDistTech.addClassBreakInfo({
+                    minValue: 23,
+                    maxValue: 24.5,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#42f480"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
+                FlateRendererDistTech.addClassBreakInfo({
+                    minValue: 24.6,
+                    maxValue: 50,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#e50d18"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
+
                 // Adds the layer to the map once it loads
                 function addLayer(layer) {
                     map.add(layer);
+                    map.add(DistTech_test);
 
                     checkForBygninger();
                 }
@@ -114,6 +242,11 @@
                 function rejection(error) {
                     console.log("Layer failed to load: ", error);
                 }
+                map.add(DistTech_test);
+                //---------------------------------------------------------------------------------
+
+
+
 
 
 
