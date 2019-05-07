@@ -32,6 +32,8 @@
         }
     </style>
 
+    
+
     <body>
         <div id="viewDiv"></div>
         </div>
@@ -94,44 +96,14 @@
                         atmosphereEnabled: false
                     },
                     center: {
-                        x: 256924.68078,
-                        y: 6605196.9098,
-                        z: 5000,
+                        x: 263284.68078,
+                        y: 6649153.9098,
+                        z: 500,
                         spatialReference: 25833
                     }
 
                 });
 
-                //-----------------------LAG------------------------------------------------------
-
-                Layer.fromPortalItem({
-                        portalItem: {
-                            // Legg til bygg
-                            id: "c276701d43d441e380ac8b1bc146b95f"
-                        }
-                    })
-                    .then(addLayer)
-                    .catch(rejection);
-
-                const DistTech_test = new FeatureLayer({
-                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28Digitaltvilling_rom/FeatureServer/1",
-                        outFields: ["*"],
-                        purgeOptions: {
-                            displayCount: 1000
-                        },
-                        renderer: polyrend,
-                        //popupTemplate: template,
-                        refreshInterval: 0.01,
-                        elevationInfo: {
-                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                            mode: "relative-to-ground"
-                                //offset: 210.5
-                        },
-
-                    }
-                    .then(addLayer)
-                    .catch(rejection)
-                );
 
 
                 //-------------------RENDERS------------------------------------------------------
@@ -149,6 +121,72 @@
                         }]
                     }
                 };
+
+
+
+                var PresentSymbol = {
+          type: "polygon-3d", // autocasts as new PolygonSymbol3D()
+          symbolLayers: [{
+                        type: "extrude",  // autocasts as new ObjectSymbol3DLayer()
+                        material: { color: "#4286f4" },
+                        edges: {
+                            type: "solid",
+                            color: "#4d5b18",
+                            size: 1.5
+                          },
+                        size: 5.6
+                    }]
+        };
+
+        var NotPresentSymbol = {
+          type: "polygon-3d", // autocasts as new PolygonSymbol3D()
+          symbolLayers: [{
+                        type: "extrude",  // autocasts as new ObjectSymbol3DLayer()
+                        material: { color: "#f44141" },
+                        edges: {
+                            type: "solid",
+                            color: "#4d5b18",
+                            size: 1.5
+                          },
+                        size: 5.6
+                    }]
+        };
+
+        var DisTechRendrerPROX = {
+          type: "unique-value", // autocasts as new UniqueValueRenderer()
+          defaultSymbol: {
+            type: "polygon-3d", // autocasts as new PolygonSymbol3D()
+            symbolLayers: [
+              {
+                type: "extrude", // autocasts as new ExtrudeSymbol3DLayer()
+                material: {
+                  color: "#A7C636"
+                },
+                edges: {
+                  type: "solid",
+                  color: "#4d5b18",
+                  size: 1.5
+                }
+              }
+            ]
+          },
+          defaultLabel: "Other",
+          field: "Status",
+          uniqueValueInfos: [
+            {
+              value: "PRESENT",
+              symbol: PresentSymbol,
+              label: "Residential"
+            },
+            {
+              value: "NOT_PRESENT",
+              symbol: NotPresentSymbol,
+              label: "Condominium"
+            }
+          ],
+         
+        };
+
 
 
                 var FlateRendererDistTech = new ClassBreaksRenderer({
@@ -242,8 +280,39 @@
                 function rejection(error) {
                     console.log("Layer failed to load: ", error);
                 }
-                map.add(DistTech_test);
                 //---------------------------------------------------------------------------------
+
+                //-----------------------LAG------------------------------------------------------
+
+                Layer.fromPortalItem({
+                        portalItem: {
+                            // Legg til bygg
+                            id: "c276701d43d441e380ac8b1bc146b95f"
+                        }
+                    })
+                    .then(addLayer)
+                    .catch(rejection);
+
+                const Geodata_rom_prox = new FeatureLayer({
+                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/2",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "relative-to-ground",
+                            //offset: 10
+                        },
+
+                    }
+                   
+                );
+
+                map.add(Geodata_rom_prox);
 
 
 
