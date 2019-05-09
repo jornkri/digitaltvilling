@@ -32,7 +32,7 @@
         }
     </style>
 
-    
+
 
     <body>
         <div id="viewDiv"></div>
@@ -46,6 +46,7 @@
                 "esri/views/SceneView",
                 "esri/Basemap",
                 "esri/layers/Layer",
+                "esri/layers/SceneLayer",
                 "esri/layers/FeatureLayer",
                 "esri/layers/ElevationLayer",
                 "esri/layers/GraphicsLayer",
@@ -56,7 +57,7 @@
                 "esri/Graphic",
                 "esri/renderers/ClassBreaksRenderer"
             ],
-            function(Map, WebScene, SceneView, Basemap, Layer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer) {
+            function(Map, WebScene, SceneView, Basemap, Layer, SceneLayer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer) {
                 var basemap = new Basemap({
                     portalItem: {
                         id: "ea53f092fa654ad08eb88067cd73c56a" // gråtone
@@ -125,67 +126,66 @@
 
 
                 var PresentSymbol = {
-          type: "polygon-3d", // autocasts as new PolygonSymbol3D()
-          symbolLayers: [{
-                        type: "extrude",  // autocasts as new ObjectSymbol3DLayer()
-                        material: { color: "#4286f4" },
+                    type: "polygon-3d", // autocasts as new PolygonSymbol3D()
+                    symbolLayers: [{
+                        type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                        material: {
+                            color: "#4286f4"
+                        },
                         edges: {
                             type: "solid",
                             color: "#4d5b18",
                             size: 1.5
-                          },
+                        },
                         size: 5.6
                     }]
-        };
+                };
 
-        var NotPresentSymbol = {
-          type: "polygon-3d", // autocasts as new PolygonSymbol3D()
-          symbolLayers: [{
-                        type: "extrude",  // autocasts as new ObjectSymbol3DLayer()
-                        material: { color: "#f44141" },
+                var NotPresentSymbol = {
+                    type: "polygon-3d", // autocasts as new PolygonSymbol3D()
+                    symbolLayers: [{
+                        type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                        material: {
+                            color: "#f44141"
+                        },
                         edges: {
                             type: "solid",
                             color: "#4d5b18",
                             size: 1.5
-                          },
+                        },
                         size: 5.6
                     }]
-        };
+                };
 
-        var DisTechRendrerPROX = {
-          type: "unique-value", // autocasts as new UniqueValueRenderer()
-          defaultSymbol: {
-            type: "polygon-3d", // autocasts as new PolygonSymbol3D()
-            symbolLayers: [
-              {
-                type: "extrude", // autocasts as new ExtrudeSymbol3DLayer()
-                material: {
-                  color: "#A7C636"
-                },
-                edges: {
-                  type: "solid",
-                  color: "#4d5b18",
-                  size: 1.5
-                }
-              }
-            ]
-          },
-          defaultLabel: "Other",
-          field: "Status",
-          uniqueValueInfos: [
-            {
-              value: "PRESENT",
-              symbol: PresentSymbol,
-              label: "Residential"
-            },
-            {
-              value: "NOT_PRESENT",
-              symbol: NotPresentSymbol,
-              label: "Condominium"
-            }
-          ],
-         
-        };
+                var DisTechRendrerPROX = {
+                    type: "unique-value", // autocasts as new UniqueValueRenderer()
+                    defaultSymbol: {
+                        type: "polygon-3d", // autocasts as new PolygonSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ExtrudeSymbol3DLayer()
+                            material: {
+                                color: "#A7C636"
+                            },
+                            edges: {
+                                type: "solid",
+                                color: "#4d5b18",
+                                size: 1.5
+                            }
+                        }]
+                    },
+                    defaultLabel: "Other",
+                    field: "Status",
+                    uniqueValueInfos: [{
+                        value: "PRESENT",
+                        symbol: PresentSymbol,
+                        label: "PresentSymbol"
+                    }, {
+                        value: "NOT_PRESENT",
+                        symbol: NotPresentSymbol,
+                        label: "NOT_PRESENT"
+                    }],
+
+                };
 
 
 
@@ -272,7 +272,7 @@
                 // Adds the layer to the map once it loads
                 function addLayer(layer) {
                     map.add(layer);
-                    map.add(DistTech_test);
+
 
                     checkForBygninger();
                 }
@@ -287,29 +287,29 @@
                 Layer.fromPortalItem({
                         portalItem: {
                             // Legg til bygg
-                            id: "c276701d43d441e380ac8b1bc146b95f"
+                            id: "33f711ff837f4f3f94583063d86617ae"
                         }
                     })
                     .then(addLayer)
                     .catch(rejection);
 
-                const Geodata_rom_prox = new FeatureLayer({
-                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/2",
+                const Geodata_rom_prox = new SceneLayer({
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_plan/SceneServer",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
                         },
-                        renderer: DisTechRendrerPROX,
+                        //renderer: DisTechRendrerPROX,
                         //popupTemplate: template,
                         refreshInterval: 0.01,
                         elevationInfo: {
                             // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                            mode: "relative-to-ground",
+                            mode: "absolute-height",
                             //offset: 10
                         },
 
                     }
-                   
+
                 );
 
                 map.add(Geodata_rom_prox);
