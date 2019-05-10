@@ -85,13 +85,17 @@
                                 size: 1.5
                             },
                             size: 5.6,
+<<<<<<< HEAD
                             opacity: 0.8
+=======
+>>>>>>> 66f3c13b234f7397d10e46aefdadf3c97a4e5589
                         }]
                     }
                 };
 
 
 
+<<<<<<< HEAD
                 var EdgeRenderer = {
                     type: "simple", // autocasts as new SimpleRenderer()
                     // Add a default MeshSymbol3D. The color will be determined
@@ -117,6 +121,8 @@
 
                 //-------------------------------------------------------------------------------     
 
+=======
+>>>>>>> 66f3c13b234f7397d10e46aefdadf3c97a4e5589
                 var PresentSymbol = {
                     type: "polygon-3d", // autocasts as new PolygonSymbol3D()
                     symbolLayers: [{
@@ -297,6 +303,7 @@
 
                 //-----------------------LAG------------------------------------------------------
 
+<<<<<<< HEAD
 
                 const geodataDigitaltvilling_kursrom_PROX_sensor= new FeatureLayer({
                     url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/Kursplass/FeatureServer",
@@ -319,11 +326,19 @@
 
                 const geodataDigitaltvilling_rom = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
+=======
+                const geodataDigitaltvilling_rom = new FeatureLayer({
+                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28Digitaltvilling_rom/FeatureServer",
+>>>>>>> 66f3c13b234f7397d10e46aefdadf3c97a4e5589
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
                         },
+<<<<<<< HEAD
                         renderer: EdgeRenderer,
+=======
+                        renderer: polyrend,
+>>>>>>> 66f3c13b234f7397d10e46aefdadf3c97a4e5589
                         //popupTemplate: template,
                         refreshInterval: 0.01,
                         elevationInfo: {
@@ -497,6 +512,7 @@
                         },
                         renderer: byggRenderer,
                         opacity: 0.3,
+<<<<<<< HEAD
 
                         //popupTemplate: template,
                         refreshInterval: 0.01,
@@ -508,6 +524,19 @@
 
                     }
 
+=======
+
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "on-the-ground",
+                            //offset: 2.8
+                        },
+
+                    }
+
+>>>>>>> 66f3c13b234f7397d10e46aefdadf3c97a4e5589
                 );
 
 
@@ -530,7 +559,11 @@
                 var map = new Map({
                     basemap: basemap,
                     //ground: "world-elevation",
+<<<<<<< HEAD
                     layers: [geodataDigitaltvilling_rom, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
+=======
+                    layers: [geodataDigitaltvilling_rom, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
+>>>>>>> 66f3c13b234f7397d10e46aefdadf3c97a4e5589
                     ground: {
                         surfaceColor: "#2A282B"
                     }
