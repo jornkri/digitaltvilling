@@ -92,19 +92,44 @@
 
 
 
+                var EdgeRenderer = {
+                    type: "simple", // autocasts as new SimpleRenderer()
+                    // Add a default MeshSymbol3D. The color will be determined
+                    // by the visual variables
+                    symbol: {
+                      type: "mesh-3d",
+                      symbolLayers: [
+                        {
+                          type: "fill",
+                          material: {
+                            color: [255, 255, 255, 0.3],
+                            colorMixMode: "replace"
+                          },
+                          edges: {
+                            type: "solid",
+                            color: [0, 0, 0],
+                            size: 1.5
+                          }
+                        }
+                      ]
+                    },
+                };
+
+                //-------------------------------------------------------------------------------     
+
                 var PresentSymbol = {
                     type: "polygon-3d", // autocasts as new PolygonSymbol3D()
                     symbolLayers: [{
                         type: "extrude", // autocasts as new ObjectSymbol3DLayer()
                         material: {
-                            color: "#4286f4"
+                            color: [0, 255, 0, 0.3],
                         },
                         edges: {
                             type: "solid",
-                            color: "#4d5b18",
+                            color: "#333333",
                             size: 1.5
                         },
-                        size: 5.6
+                        size: 1.5
                     }]
                 };
 
@@ -113,14 +138,14 @@
                     symbolLayers: [{
                         type: "extrude", // autocasts as new ObjectSymbol3DLayer()
                         material: {
-                            color: "#f44141"
+                            color: [255, 0, 0, 0.3],
                         },
                         edges: {
                             type: "solid",
-                            color: "#4d5b18",
+                            color: "#333333",
                             size: 1.5
                         },
-                        size: 5.6
+                        size: 1.5
                     }]
                 };
 
@@ -131,13 +156,14 @@
                         symbolLayers: [{
                             type: "extrude", // autocasts as new ExtrudeSymbol3DLayer()
                             material: {
-                                color: "#A7C636"
+                                color: [204, 204, 204, 0.3],
                             },
                             edges: {
                                 type: "solid",
-                                color: "#4d5b18",
+                                color: "#333333",
                                 size: 1.5
-                            }
+                            },
+                            size: 1.5
                         }]
                     },
                     defaultLabel: "Other",
@@ -271,13 +297,33 @@
 
                 //-----------------------LAG------------------------------------------------------
 
-                const geodataDigitaltvilling_rom = new FeatureLayer({
-                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28Digitaltvilling_rom/FeatureServer",
+
+                const geodataDigitaltvilling_kursrom_PROX_sensor= new FeatureLayer({
+                    url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/Kursplass/FeatureServer",
+                    outFields: ["*"],
+                    purgeOptions: {
+                        displayCount: 1000
+                    },
+                    renderer: DisTechRendrerPROX,
+                    //popupTemplate: template,
+                    refreshInterval: 0.01,
+                    elevationInfo: {
+                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                        mode: "absolute-height",
+                        offset: 2.8
+                    },
+
+                }
+
+            );
+
+                const geodataDigitaltvilling_rom = new SceneLayer({
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
                         },
-                        renderer: polyrend,
+                        renderer: EdgeRenderer,
                         //popupTemplate: template,
                         refreshInterval: 0.01,
                         elevationInfo: {
@@ -469,7 +515,7 @@
 
                 var basemap = new Basemap({
                     portalItem: {
-                        id: "ea53f092fa654ad08eb88067cd73c56a" // gråtone
+                        id: "c6cd79d600094e3d83a08cad9d3c1aa0" // gråtone
                     }
                 });
 
@@ -484,7 +530,7 @@
                 var map = new Map({
                     basemap: basemap,
                     //ground: "world-elevation",
-                    layers: [geodataDigitaltvilling_rom, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
+                    layers: [geodataDigitaltvilling_rom, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
                     ground: {
                         surfaceColor: "#2A282B"
                     }
