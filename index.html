@@ -34,7 +34,17 @@
 
 
 
+
+
+
+
+
+    </head>
+
+
     <body>
+
+       
         <div id="viewDiv"></div>
         </div>
     </body>
@@ -67,7 +77,7 @@
 
 
 
-                //--------Polyrendrer - prox---------------------
+                //--------Polyrendrer - Simple---------------------
                 var polyrend = {
                     type: "simple",
                     symbol: {
@@ -89,9 +99,9 @@
                         }]
                     }
                 };
+                //------------------------------------------------------------------------------- 
 
-
-
+                //--------Polyrendrer - Edge---------------------
                 var EdgeRenderer = {
                     type: "simple", // autocasts as new SimpleRenderer()
                     // Add a default MeshSymbol3D. The color will be determined
@@ -117,6 +127,7 @@
 
                 //-------------------------------------------------------------------------------     
 
+                //--------Polyrendrer - prox---------------------
                 var NotPresentSymbol = {
                     type: "polygon-3d", // autocasts as new PolygonSymbol3D()
                     symbolLayers: [{
@@ -182,7 +193,7 @@
                 //-----------------------------------------------
 
 
-                //--------Polyrendrer - prox---------------------
+                //--------Polyrendrer - Temp---------------------
                 var FlateRendererDistTech = new ClassBreaksRenderer({
                     // type: "class-breaks",
                     // attribute of interest - Earthquake magnitude
@@ -265,6 +276,48 @@
                         }]
                     }
                 });
+
+
+
+                var FlateRendererNordigi = new ClassBreaksRenderer({
+                    // type: "class-breaks",
+                    // attribute of interest - Earthquake magnitude
+                    valueExpression: "if ( $feature.ETASJE_TOPOLOGISK == 2) {return 0} else {return $feature.Temp}"
+                });
+
+                // All features with magnitude between 0 - 4.0
+                FlateRendererNordigi.addClassBreakInfo({
+                    minValue: 0.0,
+                    maxValue: 10,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#4286f4"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
+
+                FlateRendererNordigi.addClassBreakInfo({
+                    minValue: 10.1,
+                    maxValue: 100,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#ec1d23"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
+
+               
+
                 //-----------------------------------------------
                 //--------ekisterendeBygg---------------------
                 var solidEdges = {
@@ -289,6 +342,7 @@
                 };
 
 
+
                 //---------------------------------------------------------------------------------
 
 
@@ -296,6 +350,26 @@
 
 
                 //-----------------------LAG------------------------------------------------------
+
+
+                const geodataDigitaltvilling_kursrom_NorDIGI_sensor= new FeatureLayer({
+                    url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/3",
+                    outFields: ["*"],
+                    purgeOptions: {
+                        displayCount: 1000
+                    },
+                    renderer: FlateRendererNordigi,
+                    //popupTemplate: template,
+                    refreshInterval: 0.01,
+                    elevationInfo: {
+                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                        mode: "absolute-height",
+                        offset: 2.8
+                    },
+
+                }
+
+            );
 
 
                 const geodataDigitaltvilling_kursrom_PROX_sensor= new FeatureLayer({
@@ -335,6 +409,26 @@
                     }
 
                 );
+
+                const geodataDigitaltvilling_rom_wc_etg01 = new FeatureLayer({
+                    url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/2",
+                    definitionExpression: "Plassering LIKE 'wcHerre11' OR Plassering LIKE 'wcHerre12' OR Plassering LIKE 'wcDame11' OR Plassering LIKE 'wcDame12'",
+                    outFields: ["*"],
+                    purgeOptions: {
+                        displayCount: 1000
+                    },
+                    renderer: DisTechRendrerPROX,
+                    //popupTemplate: template,
+                    refreshInterval: 0.01,
+                    elevationInfo: {
+                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                        mode: "absolute-height",
+                        offset: 2.8
+                    },
+
+                }
+
+            );
 
                 const geodataDigitaltvilling_plan = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_plan/SceneServer",
@@ -530,7 +624,7 @@
                 var map = new Map({
                     basemap: basemap,
                     //ground: "world-elevation",
-                    layers: [geodataDigitaltvilling_rom, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
+                    layers: [geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_wc_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
                     ground: {
                         surfaceColor: "#2A282B"
                     }
