@@ -10,15 +10,12 @@
     <script src="https://js.arcgis.com/4.11/"></script>
 
 
-    <!-- Calcite Bootstrap -->
-    <!-- <link rel="stylesheet" href="https://esri.github.io/calcite-maps/dist/css/calcite-maps-bootstrap.min-v0.8.css" /> -->
     <!-- Material Design for Bootstrap fonts and icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
     <!-- Material Design for Bootstrap CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://js.arcgis.com/4.11/esri/themes/light/main.css" />
-
+    <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -29,25 +26,15 @@
     <link href="css/style.css" rel="stylesheet">
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-    <!-- <script>
-        $(document).ready(function() {
-            $('body').bootstrapMaterialDesign();
-        });
-    </script> -->
-    <script src="https://js.arcgis.com/4.11/"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+   
+    
+
 
     <script type="text/javascript" src="js/mdb.min.js"></script>
 
-    <script>
-        // SideNav Button Initialization
-        $(".button-collapse").sideNav();
-        // SideNav Scrollbar Initialization
-        var sideNavScrollbar = document.querySelector('.custom-scrollbar');
-        var ps = new PerfectScrollbar(sideNavScrollbar);
-    </script>
 
     <style>
         html,
@@ -58,140 +45,70 @@
             height: 100%;
             width: 100%;
         }
-        
+
         #paneDiv {
             padding: 10px;
             max-width: 200px;
             background-color: rgba(255, 255, 255, 0.8);
             font-size: 1.1em;
         }
-        
+
         #credits {
             font-size: 0.7em;
             line-height: 1.1em;
         }
     </style>
 
-
-
 </head>
-
 
 <body>
 
 
-    <!-- SideNav slide-out button -->
-    <a href="#" data-activates="slide-out" class="btn btn-primary p-3 button-collapse"><i
-        class="fas fa-bars"></i></a>
+    <!--Navbar-->
+    <nav class="navbar navbar-light amber lighten-4 mb-4">
 
-    <!-- Sidebar navigation -->
-    <div id="slide-out" class="side-nav fixed">
-        <ul class="custom-scrollbar">
-            <!-- Logo -->
-            <li>
-                <div class="logo-wrapper waves-light">
-                    <a href="#"><img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" class="img-fluid flex-center"></a>
-                </div>
-            </li>
-            <!--/. Logo -->
-            <!--Social-->
-            <li>
-                <ul class="social">
-                    <li><a href="#" class="icons-sm fb-ic"><i class="fab fa-facebook-f"> </i></a></li>
-                    <li><a href="#" class="icons-sm pin-ic"><i class="fab fa-pinterest"> </i></a></li>
-                    <li><a href="#" class="icons-sm gplus-ic"><i class="fab fa-google-plus-g"> </i></a></li>
-                    <li><a href="#" class="icons-sm tw-ic"><i class="fab fa-twitter"> </i></a></li>
-                </ul>
-            </li>
-            <!--/Social-->
-            <!--Search Form-->
-            <li>
-                <form class="search-form" role="search">
-                    <div class="form-group md-form mt-0 pt-1 waves-light">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                </form>
-            </li>
-            <!--/.Search Form-->
-            <!-- Side navigation links -->
-            <li>
-                <ul class="collapsible collapsible-accordion">
-                    <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i> Submit
-                blog<i class="fas fa-angle-down rotate-icon"></i></a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="#" class="waves-effect">Submit listing</a>
-                                </li>
-                                <li><a href="#" class="waves-effect">Registration form</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li><a class="collapsible-header waves-effect arrow-r"><i class="far fa-hand-pointer"></i>
-                Instruction<i class="fas fa-angle-down rotate-icon"></i></a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="#" class="waves-effect">For bloggers</a>
-                                </li>
-                                <li><a href="#" class="waves-effect">For authors</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-eye"></i> About<i
-                  class="fas fa-angle-down rotate-icon"></i></a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="#" class="waves-effect">Introduction</a>
-                                </li>
-                                <li><a href="#" class="waves-effect">Monthly meetings</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li><a class="collapsible-header waves-effect arrow-r"><i class="far fa-envelope"></i> Contact me<i
-                  class="fas fa-angle-down rotate-icon"></i></a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="#" class="waves-effect">FAQ</a>
-                                </li>
-                                <li><a href="#" class="waves-effect">Write a message</a>
-                                </li>
-                                <li><a href="#" class="waves-effect">FAQ</a>
-                                </li>
-                                <li><a href="#" class="waves-effect">Write a message</a>
-                                </li>
-                                <li><a href="#" class="waves-effect">FAQ</a>
-                                </li>
-                                <li><a href="#" class="waves-effect">Write a message</a>
-                                </li>
-                                <li><a href="#" class="waves-effect">FAQ</a>
-                                </li>
-                                <li><a href="#" class="waves-effect">Write a message</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <!--/. Side navigation links -->
-        </ul>
-        <div class="sidenav-bg rgba-blue-strong"></div>
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">Navbar</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler first-button" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent20" aria-controls="navbarSupportedContent20" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <div class="animated-icon1"><span></span><span></span><span></span></div>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent20">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+            </ul>
+            <!-- Links -->
+
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+    <!--/.Navbar-->
+
+
+
+    <div id="viewDiv">
+
     </div>
-    <!--/. Sidebar navigation -->
 
 
-
-
-
-
-
-    <div id="viewDiv"></div>
-    </div>
-</body>
-
-<script>
-    require([
+    <script>
+        require([
             "esri/Map",
             "esri/WebScene",
             "esri/views/SceneView",
@@ -208,105 +125,71 @@
             "esri/Graphic",
             "esri/renderers/ClassBreaksRenderer"
         ],
-        function(Map, WebScene, SceneView, Basemap, Layer, SceneLayer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer) {
+            function (Map, WebScene, SceneView, Basemap, Layer, SceneLayer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer) {
 
 
 
 
 
-            //-------------------RENDERS------------------------------------------------------
+                //-------------------RENDERS------------------------------------------------------
 
 
 
-            //--------Polyrendrer - Simple---------------------
-            var polyrend = {
-                type: "simple",
-                symbol: {
-                    type: "polygon-3d", // autocasts as new PointSymbol3D()
+                //--------Polyrendrer - Simple---------------------
+                var polyrend = {
+                    type: "simple",
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
 
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#f44141",
+
+                            },
+                            edges: {
+                                type: "solid",
+                                color: "#4d5b18",
+                                size: 1.5
+                            },
+                            size: 5.6,
+                            opacity: 0.8
+                        }]
+                    }
+                };
+                //------------------------------------------------------------------------------- 
+
+                //--------Polyrendrer - Edge---------------------
+                var EdgeRenderer = {
+                    type: "simple", // autocasts as new SimpleRenderer()
+                    // Add a default MeshSymbol3D. The color will be determined
+                    // by the visual variables
+                    symbol: {
+                        type: "mesh-3d",
+                        symbolLayers: [{
+                            type: "fill",
+                            material: {
+                                color: [255, 255, 255, 0.3],
+                                colorMixMode: "replace"
+                            },
+                            edges: {
+                                type: "solid",
+                                color: [0, 0, 0],
+                                size: 1.5
+                            }
+                        }]
+                    },
+                };
+
+                //-------------------------------------------------------------------------------     
+
+                //--------Polyrendrer - prox---------------------
+                var NotPresentSymbol = {
+                    type: "polygon-3d", // autocasts as new PolygonSymbol3D()
                     symbolLayers: [{
                         type: "extrude", // autocasts as new ObjectSymbol3DLayer()
                         material: {
-                            color: "#f44141",
-
-                        },
-                        edges: {
-                            type: "solid",
-                            color: "#4d5b18",
-                            size: 1.5
-                        },
-                        size: 5.6,
-                        opacity: 0.8
-                    }]
-                }
-            };
-            //------------------------------------------------------------------------------- 
-
-            //--------Polyrendrer - Edge---------------------
-            var EdgeRenderer = {
-                type: "simple", // autocasts as new SimpleRenderer()
-                // Add a default MeshSymbol3D. The color will be determined
-                // by the visual variables
-                symbol: {
-                    type: "mesh-3d",
-                    symbolLayers: [{
-                        type: "fill",
-                        material: {
-                            color: [255, 255, 255, 0.3],
-                            colorMixMode: "replace"
-                        },
-                        edges: {
-                            type: "solid",
-                            color: [0, 0, 0],
-                            size: 1.5
-                        }
-                    }]
-                },
-            };
-
-            //-------------------------------------------------------------------------------     
-
-            //--------Polyrendrer - prox---------------------
-            var NotPresentSymbol = {
-                type: "polygon-3d", // autocasts as new PolygonSymbol3D()
-                symbolLayers: [{
-                    type: "extrude", // autocasts as new ObjectSymbol3DLayer()
-                    material: {
-                        color: [0, 255, 0, 0.3],
-                    },
-                    edges: {
-                        type: "solid",
-                        color: "#333333",
-                        size: 1.5
-                    },
-                    size: 1.5
-                }]
-            };
-
-            var PresentSymbol = {
-                type: "polygon-3d", // autocasts as new PolygonSymbol3D()
-                symbolLayers: [{
-                    type: "extrude", // autocasts as new ObjectSymbol3DLayer()
-                    material: {
-                        color: [255, 0, 0, 0.3],
-                    },
-                    edges: {
-                        type: "solid",
-                        color: "#333333",
-                        size: 1.5
-                    },
-                    size: 1.5
-                }]
-            };
-
-            var DisTechRendrerPROX = {
-                type: "unique-value", // autocasts as new UniqueValueRenderer()
-                defaultSymbol: {
-                    type: "polygon-3d", // autocasts as new PolygonSymbol3D()
-                    symbolLayers: [{
-                        type: "extrude", // autocasts as new ExtrudeSymbol3DLayer()
-                        material: {
-                            color: [204, 204, 204, 0.3],
+                            color: [0, 255, 0, 0.3],
                         },
                         edges: {
                             type: "solid",
@@ -315,183 +198,217 @@
                         },
                         size: 1.5
                     }]
-                },
-                defaultLabel: "Other",
-                field: "Status",
-                uniqueValueInfos: [{
-                    value: "PRESENT",
-                    symbol: PresentSymbol,
-                    label: "PresentSymbol"
-                }, {
-                    value: "NOT_PRESENT",
-                    symbol: NotPresentSymbol,
-                    label: "NOT_PRESENT"
-                }],
+                };
 
-            };
-            //-----------------------------------------------
-
-
-            //--------Polyrendrer - Temp---------------------
-            var FlateRendererDistTech = new ClassBreaksRenderer({
-                // type: "class-breaks",
-                // attribute of interest - Earthquake magnitude
-                valueExpression: "if ( $feature.ETASJE_TOPOLOGISK == 2) {return 0} else {return $feature.Temp}"
-            });
-
-            // All features with magnitude between 0 - 4.0
-            FlateRendererDistTech.addClassBreakInfo({
-                minValue: 0.0,
-                maxValue: 1.0,
-                symbol: {
-                    type: "polygon-3d", // autocasts as new PointSymbol3D()
+                var PresentSymbol = {
+                    type: "polygon-3d", // autocasts as new PolygonSymbol3D()
                     symbolLayers: [{
                         type: "extrude", // autocasts as new ObjectSymbol3DLayer()
                         material: {
-                            color: "#4286f4"
+                            color: [255, 0, 0, 0.3],
                         },
-                        size: 5.6
-                    }]
-                }
-            });
-
-            FlateRendererDistTech.addClassBreakInfo({
-                minValue: 1.0,
-                maxValue: 1.75,
-                symbol: {
-                    type: "polygon-3d", // autocasts as new PointSymbol3D()
-                    symbolLayers: [{
-                        type: "extrude", // autocasts as new ObjectSymbol3DLayer()
-                        material: {
-                            color: "#ec1d23"
+                        edges: {
+                            type: "solid",
+                            color: "#333333",
+                            size: 1.5
                         },
-                        size: 5.6
+                        size: 1.5
                     }]
-                }
-            });
+                };
 
-            // All features with magnitude between 4.1 - 7.0
-            FlateRendererDistTech.addClassBreakInfo({
-                minValue: 1.76,
-                maxValue: 2.5,
-                symbol: {
-                    type: "polygon-3d", // autocasts as new PointSymbol3D()
-                    symbolLayers: [{
-                        type: "extrude", // autocasts as new ObjectSymbol3DLayer()
-                        material: {
-                            color: "#f37b7d"
-                        },
-                        size: 5.6
-                    }]
-                }
-            });
+                var DisTechRendrerPROX = {
+                    type: "unique-value", // autocasts as new UniqueValueRenderer()
+                    defaultSymbol: {
+                        type: "polygon-3d", // autocasts as new PolygonSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ExtrudeSymbol3DLayer()
+                            material: {
+                                color: [204, 204, 204, 0.3],
+                            },
+                            edges: {
+                                type: "solid",
+                                color: "#333333",
+                                size: 1.5
+                            },
+                            size: 1.5
+                        }]
+                    },
+                    defaultLabel: "Other",
+                    field: "Status",
+                    uniqueValueInfos: [{
+                        value: "PRESENT",
+                        symbol: PresentSymbol,
+                        label: "PresentSymbol"
+                    }, {
+                        value: "NOT_PRESENT",
+                        symbol: NotPresentSymbol,
+                        label: "NOT_PRESENT"
+                    }],
 
-            FlateRendererDistTech.addClassBreakInfo({
-                minValue: 23,
-                maxValue: 24.5,
-                symbol: {
-                    type: "polygon-3d", // autocasts as new PointSymbol3D()
-                    symbolLayers: [{
-                        type: "extrude", // autocasts as new ObjectSymbol3DLayer()
-                        material: {
-                            color: "#42f480"
-                        },
-                        size: 5.6
-                    }]
-                }
-            });
-
-            FlateRendererDistTech.addClassBreakInfo({
-                minValue: 24.6,
-                maxValue: 50,
-                symbol: {
-                    type: "polygon-3d", // autocasts as new PointSymbol3D()
-                    symbolLayers: [{
-                        type: "extrude", // autocasts as new ObjectSymbol3DLayer()
-                        material: {
-                            color: "#e50d18"
-                        },
-                        size: 5.6
-                    }]
-                }
-            });
+                };
+                //-----------------------------------------------
 
 
+                //--------Polyrendrer - Temp---------------------
+                var FlateRendererDistTech = new ClassBreaksRenderer({
+                    // type: "class-breaks",
+                    // attribute of interest - Earthquake magnitude
+                    valueExpression: "if ( $feature.ETASJE_TOPOLOGISK == 2) {return 0} else {return $feature.Temp}"
+                });
 
-            var FlateRendererNordigi = new ClassBreaksRenderer({
-                // type: "class-breaks",
-                // attribute of interest - Earthquake magnitude
-                valueExpression: "if ( $feature.ETASJE_TOPOLOGISK == 2) {return 0} else {return $feature.Temp}"
-            });
+                // All features with magnitude between 0 - 4.0
+                FlateRendererDistTech.addClassBreakInfo({
+                    minValue: 0.0,
+                    maxValue: 1.0,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#4286f4"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
 
-            // All features with magnitude between 0 - 4.0
-            FlateRendererNordigi.addClassBreakInfo({
-                minValue: 0.0,
-                maxValue: 10,
-                symbol: {
-                    type: "polygon-3d", // autocasts as new PointSymbol3D()
-                    symbolLayers: [{
-                        type: "extrude", // autocasts as new ObjectSymbol3DLayer()
-                        material: {
-                            color: "#4286f4"
-                        },
-                        size: 5.6
-                    }]
-                }
-            });
+                FlateRendererDistTech.addClassBreakInfo({
+                    minValue: 1.0,
+                    maxValue: 1.75,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#ec1d23"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
 
-            FlateRendererNordigi.addClassBreakInfo({
-                minValue: 10.1,
-                maxValue: 100,
-                symbol: {
-                    type: "polygon-3d", // autocasts as new PointSymbol3D()
-                    symbolLayers: [{
-                        type: "extrude", // autocasts as new ObjectSymbol3DLayer()
-                        material: {
-                            color: "#ec1d23"
-                        },
-                        size: 5.6
-                    }]
-                }
-            });
+                // All features with magnitude between 4.1 - 7.0
+                FlateRendererDistTech.addClassBreakInfo({
+                    minValue: 1.76,
+                    maxValue: 2.5,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#f37b7d"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
 
+                FlateRendererDistTech.addClassBreakInfo({
+                    minValue: 23,
+                    maxValue: 24.5,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#42f480"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
 
-
-            //-----------------------------------------------
-            //--------ekisterendeBygg---------------------
-            var solidEdges = {
-                type: "solid",
-                color: [0, 0, 0, 0.6],
-                size: 1
-            };
-
-            var byggRenderer = {
-                type: "simple", // autocasts as new SimpleRenderer()
-                symbol: {
-                    type: "mesh-3d",
-                    symbolLayers: [{
-                        type: "fill",
-                        material: {
-                            color: "#ffffff",
-                            colorMixMode: "replace"
-                        },
-                        edges: solidEdges
-                    }]
-                },
-            };
-
-
-
-            //---------------------------------------------------------------------------------
-
-
-
+                FlateRendererDistTech.addClassBreakInfo({
+                    minValue: 24.6,
+                    maxValue: 50,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#e50d18"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
 
 
-            //-----------------------LAG------------------------------------------------------
+
+                var FlateRendererNordigi = new ClassBreaksRenderer({
+                    // type: "class-breaks",
+                    // attribute of interest - Earthquake magnitude
+                    valueExpression: "if ( $feature.ETASJE_TOPOLOGISK == 2) {return 0} else {return $feature.Temp}"
+                });
+
+                // All features with magnitude between 0 - 4.0
+                FlateRendererNordigi.addClassBreakInfo({
+                    minValue: 0.0,
+                    maxValue: 10,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#4286f4"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
+
+                FlateRendererNordigi.addClassBreakInfo({
+                    minValue: 10.1,
+                    maxValue: 100,
+                    symbol: {
+                        type: "polygon-3d", // autocasts as new PointSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                            material: {
+                                color: "#ec1d23"
+                            },
+                            size: 5.6
+                        }]
+                    }
+                });
 
 
-            const geodataDigitaltvilling_kursrom_NorDIGI_sensor = new FeatureLayer({
+
+                //-----------------------------------------------
+                //--------ekisterendeBygg---------------------
+                var solidEdges = {
+                    type: "solid",
+                    color: [0, 0, 0, 0.6],
+                    size: 1
+                };
+
+                var byggRenderer = {
+                    type: "simple", // autocasts as new SimpleRenderer()
+                    symbol: {
+                        type: "mesh-3d",
+                        symbolLayers: [{
+                            type: "fill",
+                            material: {
+                                color: "#ffffff",
+                                colorMixMode: "replace"
+                            },
+                            edges: solidEdges
+                        }]
+                    },
+                };
+
+
+
+                //---------------------------------------------------------------------------------
+
+
+
+
+
+                //-----------------------LAG------------------------------------------------------
+
+
+                const geodataDigitaltvilling_kursrom_NorDIGI_sensor = new FeatureLayer({
                     url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/3",
                     outFields: ["*"],
                     purgeOptions: {
@@ -508,10 +425,10 @@
 
                 }
 
-            );
+                );
 
 
-            const geodataDigitaltvilling_kursrom_PROX_sensor = new FeatureLayer({
+                const geodataDigitaltvilling_kursrom_PROX_sensor = new FeatureLayer({
                     url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/Kursplass/FeatureServer",
                     outFields: ["*"],
                     purgeOptions: {
@@ -528,9 +445,9 @@
 
                 }
 
-            );
+                );
 
-            const geodataDigitaltvilling_rom = new SceneLayer({
+                const geodataDigitaltvilling_rom = new SceneLayer({
                     url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
                     outFields: ["*"],
                     purgeOptions: {
@@ -547,9 +464,9 @@
 
                 }
 
-            );
+                );
 
-            const geodataDigitaltvilling_rom_wc_etg01 = new FeatureLayer({
+                const geodataDigitaltvilling_rom_wc_etg01 = new FeatureLayer({
                     url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/2",
                     definitionExpression: "Plassering LIKE 'wcHerre11' OR Plassering LIKE 'wcHerre12' OR Plassering LIKE 'wcDame11' OR Plassering LIKE 'wcDame12'",
                     outFields: ["*"],
@@ -567,9 +484,9 @@
 
                 }
 
-            );
+                );
 
-            const geodataDigitaltvilling_plan = new SceneLayer({
+                const geodataDigitaltvilling_plan = new SceneLayer({
                     url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_plan/SceneServer",
                     outFields: ["*"],
                     purgeOptions: {
@@ -586,9 +503,9 @@
 
                 }
 
-            );
+                );
 
-            const geodataDigitaltvilling_langbord = new SceneLayer({
+                const geodataDigitaltvilling_langbord = new SceneLayer({
                     url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_langbord/SceneServer",
                     outFields: ["*"],
                     purgeOptions: {
@@ -605,9 +522,9 @@
 
                 }
 
-            );
+                );
 
-            const geodataDigitaltvilling_WC = new SceneLayer({
+                const geodataDigitaltvilling_WC = new SceneLayer({
                     url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_WC/SceneServer",
                     outFields: ["*"],
                     purgeOptions: {
@@ -624,9 +541,9 @@
 
                 }
 
-            );
+                );
 
-            const geodataDigitaltvilling_Trapp = new SceneLayer({
+                const geodataDigitaltvilling_Trapp = new SceneLayer({
                     url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Trapp/SceneServer",
                     outFields: ["*"],
                     purgeOptions: {
@@ -643,9 +560,9 @@
 
                 }
 
-            );
+                );
 
-            const geodataDigitaltvilling_Soyler = new SceneLayer({
+                const geodataDigitaltvilling_Soyler = new SceneLayer({
                     url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_S%C3%B8yler/SceneServer",
                     outFields: ["*"],
                     purgeOptions: {
@@ -662,9 +579,9 @@
 
                 }
 
-            );
+                );
 
-            const geodataDigitaltvilling_Planter = new SceneLayer({
+                const geodataDigitaltvilling_Planter = new SceneLayer({
                     url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Planter/SceneServer",
                     outFields: ["*"],
                     purgeOptions: {
@@ -681,9 +598,9 @@
 
                 }
 
-            );
+                );
 
-            const geodataDigitaltvilling_Bokhylle = new SceneLayer({
+                const geodataDigitaltvilling_Bokhylle = new SceneLayer({
                     url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Bokhylle/SceneServer",
                     outFields: ["*"],
                     purgeOptions: {
@@ -700,9 +617,9 @@
 
                 }
 
-            );
+                );
 
-            const geodataDigitaltvilling_Arbeidsplass = new SceneLayer({
+                const geodataDigitaltvilling_Arbeidsplass = new SceneLayer({
                     url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Arbeidsplass/SceneServer",
                     outFields: ["*"],
                     purgeOptions: {
@@ -719,9 +636,9 @@
 
                 }
 
-            );
+                );
 
-            const Bygninger_Norge_Oslo = new SceneLayer({
+                const Bygninger_Norge_Oslo = new SceneLayer({
                     url: "https://tiles.arcgis.com/tiles/PdUYt91ohJfR04kk/arcgis/rest/services/Bygninger_Norge_OsloSommerkonf_20180730_124537/SceneServer",
                     definitionExpression: "byggnr <> 81809542 AND byggnr <> 81809569 AND byggnr <> 81809488",
                     outFields: ["*"],
@@ -741,70 +658,86 @@
 
                 }
 
-            );
+                );
 
 
 
 
-            var basemap = new Basemap({
-                portalItem: {
-                    id: "c6cd79d600094e3d83a08cad9d3c1aa0" // gråtone
-                }
-            });
+                var basemap = new Basemap({
+                    portalItem: {
+                        id: "c6cd79d600094e3d83a08cad9d3c1aa0" // gråtone
+                    }
+                });
 
-            var elevLyr = new ElevationLayer({
-                portalItem: {
-                    id: "4526a4d94b844467a3ce130da8ca172d"
-                }
-            });
+                var elevLyr = new ElevationLayer({
+                    portalItem: {
+                        id: "4526a4d94b844467a3ce130da8ca172d"
+                    }
+                });
 
-            const gLayer = new GraphicsLayer();
+                const gLayer = new GraphicsLayer();
 
-            var map = new Map({
-                basemap: basemap,
-                //ground: "world-elevation",
-                layers: [geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_wc_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
-                ground: {
-                    surfaceColor: "#2A282B"
-                }
-            });
+                var map = new Map({
+                    basemap: basemap,
+                    //ground: "world-elevation",
+                    layers: [geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_wc_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
+                    ground: {
+                        surfaceColor: "#2A282B"
+                    }
+                });
 
 
-            map.ground.layers.add(elevLyr);
+                map.ground.layers.add(elevLyr);
 
-            var view = new SceneView({
-                container: "viewDiv",
-                map: map,
-                alphaCompositingEnabled: true,
-                environment: {
-                    background: {
-                        type: "color", // autocasts as new ColorBackground()
-                        color: "#2A282B"
+                var view = new SceneView({
+                    container: "viewDiv",
+                    map: map,
+                    alphaCompositingEnabled: true,
+                    environment: {
+                        background: {
+                            type: "color", // autocasts as new ColorBackground()
+                            color: "#2A282B"
+                        },
+                        // disable stars
+                        starsEnabled: false,
+                        //disable atmosphere
+                        atmosphereEnabled: false
                     },
-                    // disable stars
-                    starsEnabled: false,
-                    //disable atmosphere
-                    atmosphereEnabled: false
-                },
-                center: {
-                    x: 263164.68078,
-                    y: 6649010.9098,
-                    z: 100,
-                    spatialReference: 25833
-                }
+                    center: {
+                        x: 263164.68078,
+                        y: 6649010.9098,
+                        z: 100,
+                        spatialReference: 25833
+                    }
+
+                });
+
+
+
+
+
+
 
             });
+    </script>
 
+    <script>
+        $(document).ready(function () {
 
+            $('.first-button').on('click', function () {
 
+                $('.animated-icon1').toggleClass('open');
+            });
+            $('.second-button').on('click', function () {
 
+                $('.animated-icon2').toggleClass('open');
+            });
+            $('.third-button').on('click', function () {
 
-
-
+                $('.animated-icon3').toggleClass('open');
+            });
         });
-</script>
-
-
+    </script>
 
 </body>
 
