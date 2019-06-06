@@ -7,15 +7,10 @@
     <title>Digital tvilling - Geodata</title>
 
     <link rel="stylesheet" href="https://js.arcgis.com/4.11/esri/themes/light/main.css" />
-    <script src="https://js.arcgis.com/4.11/"></script>
-
-
     <!-- Material Design for Bootstrap fonts and icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
     <!-- Material Design for Bootstrap CSS -->
-    <link rel="stylesheet"
-        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
-        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -25,43 +20,18 @@
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
 
+    <script src="https://js.arcgis.com/4.11/"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-   
-    
+</head>
+
+<body>
 
 
     <script type="text/javascript" src="js/mdb.min.js"></script>
 
 
-    <style>
-        html,
-        body,
-        #viewDiv {
-            padding: 0;
-            margin: 0;
-            height: 100%;
-            width: 100%;
-        }
-
-        #paneDiv {
-            padding: 10px;
-            max-width: 200px;
-            background-color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1em;
-        }
-
-        #credits {
-            font-size: 0.7em;
-            line-height: 1.1em;
-        }
-    </style>
-
-</head>
-
-<body>
 
 
     <!--Navbar-->
@@ -71,11 +41,9 @@
         <a class="navbar-brand" href="#">Navbar</a>
 
         <!-- Collapse button -->
-        <button class="navbar-toggler first-button" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent20" aria-controls="navbarSupportedContent20" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <div class="animated-icon1"><span></span><span></span><span></span></div>
-        </button>
+        <button class="navbar-toggler first-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent20" aria-controls="navbarSupportedContent20" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon1"><span></span><span></span><span></span></div>
+    </button>
 
         <!-- Collapsible content -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent20">
@@ -100,6 +68,73 @@
     </nav>
     <!--/.Navbar-->
 
+    <!--Navbar-->
+    <nav class="navbar navbar-dark red lighten-1 mb-4">
+
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">Navbar</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler second-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent23" aria-controls="navbarSupportedContent23" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon2"><span></span><span></span><span></span><span></span></div>
+    </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent23">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+            </ul>
+            <!-- Links -->
+
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+    <!--/.Navbar-->
+
+    <!--Navbar-->
+    <nav class="navbar navbar-dark  indigo darken-2">
+
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">Navbar</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler third-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent22" aria-controls="navbarSupportedContent22" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon3"><span></span><span></span><span></span></div>
+    </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent22">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+            </ul>
+            <!-- Links -->
+
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+    <!--/.Navbar-->
 
 
     <div id="viewDiv">
@@ -109,23 +144,23 @@
 
     <script>
         require([
-            "esri/Map",
-            "esri/WebScene",
-            "esri/views/SceneView",
-            "esri/Basemap",
-            "esri/layers/Layer",
-            "esri/layers/SceneLayer",
-            "esri/layers/FeatureLayer",
-            "esri/layers/ElevationLayer",
-            "esri/layers/GraphicsLayer",
-            "esri/widgets/Sketch/SketchViewModel",
-            "esri/symbols/WebStyleSymbol",
-            "esri/views/layers/support/FeatureFilter",
-            "esri/geometry/geometryEngine",
-            "esri/Graphic",
-            "esri/renderers/ClassBreaksRenderer"
-        ],
-            function (Map, WebScene, SceneView, Basemap, Layer, SceneLayer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer) {
+                "esri/Map",
+                "esri/WebScene",
+                "esri/views/SceneView",
+                "esri/Basemap",
+                "esri/layers/Layer",
+                "esri/layers/SceneLayer",
+                "esri/layers/FeatureLayer",
+                "esri/layers/ElevationLayer",
+                "esri/layers/GraphicsLayer",
+                "esri/widgets/Sketch/SketchViewModel",
+                "esri/symbols/WebStyleSymbol",
+                "esri/views/layers/support/FeatureFilter",
+                "esri/geometry/geometryEngine",
+                "esri/Graphic",
+                "esri/renderers/ClassBreaksRenderer"
+            ],
+            function(Map, WebScene, SceneView, Basemap, Layer, SceneLayer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer) {
 
 
 
@@ -409,254 +444,254 @@
 
 
                 const geodataDigitaltvilling_kursrom_NorDIGI_sensor = new FeatureLayer({
-                    url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/3",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    renderer: FlateRendererNordigi,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/3",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: FlateRendererNordigi,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
 
                 const geodataDigitaltvilling_kursrom_PROX_sensor = new FeatureLayer({
-                    url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/Kursplass/FeatureServer",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    renderer: DisTechRendrerPROX,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/Kursplass/FeatureServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
                 const geodataDigitaltvilling_rom = new SceneLayer({
-                    url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    renderer: EdgeRenderer,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: EdgeRenderer,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
                 const geodataDigitaltvilling_rom_wc_etg01 = new FeatureLayer({
-                    url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/2",
-                    definitionExpression: "Plassering LIKE 'wcHerre11' OR Plassering LIKE 'wcHerre12' OR Plassering LIKE 'wcDame11' OR Plassering LIKE 'wcDame12'",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    renderer: DisTechRendrerPROX,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/2",
+                        definitionExpression: "Plassering LIKE 'wcHerre11' OR Plassering LIKE 'wcHerre12' OR Plassering LIKE 'wcDame11' OR Plassering LIKE 'wcDame12'",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
                 const geodataDigitaltvilling_plan = new SceneLayer({
-                    url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_plan/SceneServer",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    //renderer: DisTechRendrerPROX,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_plan/SceneServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
                 const geodataDigitaltvilling_langbord = new SceneLayer({
-                    url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_langbord/SceneServer",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    //renderer: DisTechRendrerPROX,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_langbord/SceneServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
                 const geodataDigitaltvilling_WC = new SceneLayer({
-                    url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_WC/SceneServer",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    //renderer: DisTechRendrerPROX,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_WC/SceneServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
                 const geodataDigitaltvilling_Trapp = new SceneLayer({
-                    url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Trapp/SceneServer",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    //renderer: DisTechRendrerPROX,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Trapp/SceneServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
                 const geodataDigitaltvilling_Soyler = new SceneLayer({
-                    url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_S%C3%B8yler/SceneServer",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    //renderer: DisTechRendrerPROX,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_S%C3%B8yler/SceneServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
                 const geodataDigitaltvilling_Planter = new SceneLayer({
-                    url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Planter/SceneServer",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    //renderer: DisTechRendrerPROX,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Planter/SceneServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
                 const geodataDigitaltvilling_Bokhylle = new SceneLayer({
-                    url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Bokhylle/SceneServer",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    //renderer: DisTechRendrerPROX,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Bokhylle/SceneServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
                 const geodataDigitaltvilling_Arbeidsplass = new SceneLayer({
-                    url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Arbeidsplass/SceneServer",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    //renderer: DisTechRendrerPROX,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Arbeidsplass/SceneServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
                 const Bygninger_Norge_Oslo = new SceneLayer({
-                    url: "https://tiles.arcgis.com/tiles/PdUYt91ohJfR04kk/arcgis/rest/services/Bygninger_Norge_OsloSommerkonf_20180730_124537/SceneServer",
-                    definitionExpression: "byggnr <> 81809542 AND byggnr <> 81809569 AND byggnr <> 81809488",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    renderer: byggRenderer,
-                    opacity: 0.3,
+                        url: "https://tiles.arcgis.com/tiles/PdUYt91ohJfR04kk/arcgis/rest/services/Bygninger_Norge_OsloSommerkonf_20180730_124537/SceneServer",
+                        definitionExpression: "byggnr <> 81809542 AND byggnr <> 81809569 AND byggnr <> 81809488",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: byggRenderer,
+                        opacity: 0.3,
 
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "on-the-ground",
-                        //offset: 2.8
-                    },
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "on-the-ground",
+                            //offset: 2.8
+                        },
 
-                }
+                    }
 
                 );
 
@@ -722,17 +757,17 @@
     </script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
-            $('.first-button').on('click', function () {
+            $('.first-button').on('click', function() {
 
                 $('.animated-icon1').toggleClass('open');
             });
-            $('.second-button').on('click', function () {
+            $('.second-button').on('click', function() {
 
                 $('.animated-icon2').toggleClass('open');
             });
-            $('.third-button').on('click', function () {
+            $('.third-button').on('click', function() {
 
                 $('.animated-icon3').toggleClass('open');
             });
