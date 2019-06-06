@@ -70,11 +70,11 @@
             function(Map, WebScene, SceneView, Basemap, Layer, SceneLayer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer) {
 
 
-
+                const defExpression = "byggnr <> 81809542 AND byggnr <> 81809569 AND byggnr <> 81809488";
+                const defExpressionHiglight = "byggnr = 81809542 or byggnr = 81809569 or byggnr = 81809488 or byggnr = 80725728 or byggnr = 80772092 or byggnr = 80835337 or byggnr = 81050821 or byggnr = 81097607";
 
 
                 //-------------------RENDERS------------------------------------------------------
-
 
 
                 //--------Polyrendrer - Simple---------------------
@@ -341,6 +341,21 @@
                     },
                 };
 
+                var byggRendererHiglight = {
+                    type: "simple", // autocasts as new SimpleRenderer()
+                    symbol: {
+                        type: "mesh-3d",
+                        symbolLayers: [{
+                            type: "fill",
+                            material: {
+                                color: "#42ebf4",
+                                colorMixMode: "replace"
+                            },
+                            edges: solidEdges
+                        }]
+                    },
+                };
+
 
 
                 //---------------------------------------------------------------------------------
@@ -584,7 +599,7 @@
 
                 const Bygninger_Norge_Oslo = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/PdUYt91ohJfR04kk/arcgis/rest/services/Bygninger_Norge_OsloSommerkonf_20180730_124537/SceneServer",
-                        definitionExpression: "byggnr <> 81809542 AND byggnr <> 81809569 AND byggnr <> 81809488",
+                        definitionExpression: defExpression,
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -603,6 +618,29 @@
                     }
 
                 );
+
+
+                const Bygninger_Norge_Oslo_highligted = new SceneLayer({
+                    url: "https://tiles.arcgis.com/tiles/PdUYt91ohJfR04kk/arcgis/rest/services/Bygninger_Norge_OsloSommerkonf_20180730_124537/SceneServer",
+                    definitionExpression: defExpressionHiglight,
+                    outFields: ["*"],
+                    purgeOptions: {
+                        displayCount: 1000
+                    },
+                    renderer: byggRendererHiglight,
+                    //opacity: 0.3,
+
+                    //popupTemplate: template,
+                    refreshInterval: 0.01,
+                    elevationInfo: {
+                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                        mode: "on-the-ground",
+                        //offset: 2.8
+                    },
+
+                }
+
+            );
 
 
 
@@ -624,7 +662,7 @@
                 var map = new Map({
                     basemap: basemap,
                     //ground: "world-elevation",
-                    layers: [geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_wc_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
+                    layers: [Bygninger_Norge_Oslo_highligted, geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_wc_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
                     ground: {
                         surfaceColor: "#2A282B"
                     }
@@ -656,7 +694,17 @@
 
                 });
 
+                view.watch("scale", function(newValue) {
+                    //geodataDigitaltvilling_rom_wc_etg01.renderer = newValue <= 72224 ? simpleRenderer : DisTechRendrerPROX;
 
+                    if (newValue < 1000) {
+                        // Bygninger_Norge_Oslo.definitionExpression = defExpression;
+                        Bygninger_Norge_Oslo_highligted.visible = false;
+                    } else {
+                        // Bygninger_Norge_Oslo.definitionExpression = '';
+                        Bygninger_Norge_Oslo_highligted.visible = true;
+                    }
+                });
 
 
 
