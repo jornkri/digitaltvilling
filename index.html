@@ -412,7 +412,7 @@
 
                 const geodataDigitaltvilling_rom_wc_etg01 = new FeatureLayer({
                     url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/2",
-                    definitionExpression: "Plassering LIKE 'wcHerre11' OR Plassering LIKE 'wcHerre12' OR Plassering LIKE 'wcDame11' OR Plassering LIKE 'wcDame12'",
+                    definitionExpression: "Name NOT LIKE ''",
                     outFields: ["*"],
                     purgeOptions: {
                         displayCount: 1000
