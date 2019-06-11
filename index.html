@@ -140,7 +140,7 @@
                             color: "#333333",
                             size: 1.5
                         },
-                        size: 1.5
+                        size: 3
                     }]
                 };
 
@@ -156,7 +156,7 @@
                             color: "#333333",
                             size: 1.5
                         },
-                        size: 1.5
+                        size: 3
                     }]
                 };
 
@@ -174,7 +174,7 @@
                                 color: "#333333",
                                 size: 1.5
                             },
-                            size: 1.5
+                            size: 3
                         }]
                     },
                     defaultLabel: "Other",
@@ -360,7 +360,79 @@
 
                 //---------------------------------------------------------------------------------
 
+                //--------PersonRendrer---------------------
 
+
+                var verticalOffset = {
+                    screenLength: 5,
+                    maxWorldLength: 25,
+                    minWorldLength: 4
+                };
+
+
+                function getUniqueValueSymbol(name, color) {
+                    // The point symbol is visualized with an icon symbol. To clearly see the location of the point
+                    // we displace the icon vertically and add a callout line. The line connects the offseted symbol with the location
+                    // of the point feature.
+                    return {
+                    type: "point-3d", // autocasts as new PointSymbol3D()
+                    symbolLayers: [{
+                        type: "icon", // autocasts as new IconSymbol3DLayer()
+                        resource: {
+                        href: name
+                        },
+                        size: 400,
+                        outline: {
+                        color: "white",
+                        size: 10
+                        }
+                    }],
+    
+                    verticalOffset: verticalOffset,
+    
+                    callout: {
+                        type: "line", // autocasts as new LineCallout3D()
+                        color: "white",
+                        size: 50,
+                        border: {
+                        color: color
+                        }
+                    }
+                    };
+                }
+    
+                var pointsRenderer = {
+                    type: "unique-value", // autocasts as new UniqueValueRenderer()
+                    field: "Stasjonsnavn",
+                    uniqueValueInfos: [{
+                    value: "Person",
+                    symbol: getUniqueValueSymbol("personLedig.png", "#d63031")
+                    
+                    }]
+                };
+    
+    
+                var personsymbol = [{
+                    value: "Person1",
+                    name: "Standing Inverted Cone",
+                 }, {
+                    value: "Person2",
+                    name: "Standing Inverted Cone",
+                 }, {
+                    value: "Person3",
+                    name: "Standing Cylinder",
+                 }, {
+                    value: "Person4",
+                    name: "Standing Inverted Cone",
+                 }, {
+                    value: "Person5",
+                    name: "Standing Inverted Cone",
+                 }, {
+                    value: "Person6",
+                    name: "Standing Inverted Cone",
+                }];
+
+                //---------------------------------------------------------------------------------
 
 
 
@@ -597,6 +669,25 @@
 
                 );
 
+                const personDigitaltvilling = new FeatureLayer({
+                    url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/PersonerDigitalTvilling/FeatureServer",
+                    outFields: ["*"],
+                    purgeOptions: {
+                        displayCount: 1000
+                    },
+                    renderer: pointsRenderer,
+                    //popupTemplate: template,
+                    refreshInterval: 0.01,
+                    elevationInfo: {
+                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                        mode: "absolute-height",
+                        offset: 2.8
+                    },
+
+                }
+
+            );
+
                 const Bygninger_Norge_Oslo = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/PdUYt91ohJfR04kk/arcgis/rest/services/Bygninger_Norge_OsloSommerkonf_20180730_124537/SceneServer",
                         definitionExpression: defExpression,
@@ -662,7 +753,7 @@
                 var map = new Map({
                     basemap: basemap,
                     //ground: "world-elevation",
-                    layers: [Bygninger_Norge_Oslo_highligted, geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_wc_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
+                    layers: [personDigitaltvilling, Bygninger_Norge_Oslo_highligted, geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_wc_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
                     ground: {
                         surfaceColor: "#2A282B"
                     }
