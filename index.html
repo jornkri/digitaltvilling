@@ -176,6 +176,38 @@
                     }],
 
                 };
+
+
+                var RomBooking = {
+                    type: "unique-value", // autocasts as new UniqueValueRenderer()
+                    defaultSymbol: {
+                        type: "polygon-3d", // autocasts as new PolygonSymbol3D()
+                        symbolLayers: [{
+                            type: "extrude", // autocasts as new ExtrudeSymbol3DLayer()
+                            material: {
+                                color: [204, 204, 204, 0.3],
+                            },
+                            edges: {
+                                type: "solid",
+                                color: "#333333",
+                                size: 1.5
+                            },
+                            size: 1.5
+                        }]
+                    },
+                    defaultLabel: "Other",
+                    field: "Tilgjengelighet",
+                    uniqueValueInfos: [{
+                        value: "Opptatt",
+                        symbol: PresentSymbol,
+                        label: "PresentSymbol"
+                    }, {
+                        value: "Ledig",
+                        symbol: NotPresentSymbol,
+                        label: "NOT_PRESENT"
+                    }],
+
+                };
                 //-----------------------------------------------
 
 
@@ -508,27 +540,28 @@
 
                 );
 
+
                 const geodataDigitaltvilling_rom = new SceneLayer({
-                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
-                        outFields: ["*"],
-                        purgeOptions: {
-                            displayCount: 1000
-                        },
-                        renderer: EdgeRenderer,
-                        //popupTemplate: template,
-                        refreshInterval: 0.01,
-                        elevationInfo: {
-                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                            mode: "absolute-height",
-                            offset: 2.8
-                        },
+                    url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
+                    outFields: ["*"],
+                    purgeOptions: {
+                        displayCount: 1000
+                    },
+                    renderer: EdgeRenderer,
+                    //popupTemplate: template,
+                    refreshInterval: 0.01,
+                    elevationInfo: {
+                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                        mode: "absolute-height",
+                        offset: 2.8
+                    },
 
-                    }
+                }
 
-                );
+            );
 
-                const geodataDigitaltvilling_rom_wc_etg01 = new FeatureLayer({
-                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer/0?token=J5izM_sWyPXYVp0lpKqwmYuINfeJQSiJzigsVZceyZ-J1yTzeqeuePfrdVz_r-IvdEqDzt1Ek905b7rCzTgOil49gGZC-bvOMGKUA721eiZff0jyBOYVV83lvVaCkJUg8zovF-ClwJV-r0ViFhDCcqsxBcvtGFR_sAWBtRZVzhkFXZI-8OIwB4RJxVZ5ORb-z6EMXb-w0Hpz3-o0tIRwlxmDGpCq07Naku7lTxFCqiHb6jMMdjOYih_0rNwKsopM5HscUe8tOoplZ4G1yKElEw..",
+                const geodataDigitaltvilling_rom_etg01 = new FeatureLayer({
+                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer",
                         definitionExpression: "SensorID NOT LIKE ''",
                         outFields: ["*"],
                         purgeOptions: {
@@ -546,6 +579,26 @@
                     }
 
                 );
+
+                const geodataDigitaltvilling_rom_etg01_booking = new FeatureLayer({
+                    url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer",
+                    definitionExpression: "Tilgjengelighet NOT LIKE ''",
+                    outFields: ["*"],
+                    purgeOptions: {
+                        displayCount: 1000
+                    },
+                    renderer: RomBooking,
+                    //popupTemplate: template,
+                    refreshInterval: 0.01,
+                    elevationInfo: {
+                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                        mode: "absolute-height",
+                        offset: 2.8
+                    },
+
+                }
+
+            );
 
                 const geodataDigitaltvilling_plan = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_plan/SceneServer",
@@ -783,7 +836,7 @@
                 var map = new Map({
                     basemap: basemap,
                     //ground: "world-elevation",
-                    layers: [personDigitaltvilling, Bygninger_Norge_Oslo_highligted, geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_wc_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
+                    layers: [geodataDigitaltvilling_rom_etg01_booking, personDigitaltvilling, Bygninger_Norge_Oslo_highligted, geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
                     ground: {
                         surfaceColor: "#2A282B"
                     }
