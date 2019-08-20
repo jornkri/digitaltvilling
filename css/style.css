@@ -18,41 +18,45 @@ body,
     line-height: 1.1em;
 }
 
-.slideout-menu {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 256px;
-    min-height: 100vh;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    z-index: 0;
+.esri-ui-top-right {
+    max-height: 100%;
+}
+
+#queryDiv,
+#resultDiv {
+    min-width: 250px;
+    font-size: 14px;
+    padding: 10px;
     display: none;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.slideout-menu-left {
-    left: 0;
+.geometry-options {
+    display: flex;
+    flex-direction: row;
 }
 
-.slideout-menu-right {
-    right: 0;
+.geometry-button {
+    flex: 1;
+    border-style: solid;
+    border-width: 1px;
+    border-image: none;
 }
 
-.slideout-panel {
-    position: relative;
-    z-index: 1;
-    will-change: transform;
-    background-color: #FFF;
-    /* A background-color is required */
-    min-height: 100vh;
+.geometry-button-selected {
+    background: #4c4c4c;
+    color: #fff;
 }
 
-.slideout-open,
-.slideout-open body,
-.slideout-open .slideout-panel {
-    overflow: hidden;
+#bufferNum {
+    width: 90%;
+    margin: 2.5em auto 0;
 }
 
-.slideout-open .slideout-menu {
-    display: block;
+.count {
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
 }

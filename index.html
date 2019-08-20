@@ -19,6 +19,9 @@
     <!-- Your custom styles (optional) -->
     <link rel="stylesheet" href="css/style.css">
 
+    <!-- Load the Chart.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
     <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.12/"></script>
 
@@ -53,9 +56,11 @@
                 "esri/views/layers/support/FeatureFilter",
                 "esri/geometry/geometryEngine",
                 "esri/Graphic",
-                "esri/renderers/ClassBreaksRenderer"
+                "esri/renderers/ClassBreaksRenderer",
+                "esri/widgets/Slider",
+                "esri/core/promiseUtils"
             ],
-            function(Map, WebScene, SceneView, Basemap, Layer, SceneLayer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer) {
+            function(Map, WebScene, SceneView, Basemap, Layer, SceneLayer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer, Slider, promiseUtils) {
 
 
                 const defExpression = "byggnr <> 81809542 AND byggnr <> 81809569 AND byggnr <> 81809488";
@@ -176,8 +181,40 @@
                     }],
 
                 };
+                //-----------------------------------------------
 
+                //--------Polyrendrer ROM - Booking---------------------   
+                var LedigSymbol = {
+                    type: "polygon-3d", // autocasts as new PolygonSymbol3D()
+                    symbolLayers: [{
+                        type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                        material: {
+                            color: [87, 214, 141, 0.8],
+                        },
+                        edges: {
+                            type: "solid",
+                            color: "#333333",
+                            size: 1.5
+                        },
+                        size: 3
+                    }]
+                };
 
+                var OpptattSymbol = {
+                    type: "polygon-3d", // autocasts as new PolygonSymbol3D()
+                    symbolLayers: [{
+                        type: "extrude", // autocasts as new ObjectSymbol3DLayer()
+                        material: {
+                            color: [192, 57, 43, 0.8],
+                        },
+                        edges: {
+                            type: "solid",
+                            color: "#333333",
+                            size: 1.5
+                        },
+                        size: 3
+                    }]
+                };
                 var RomBooking = {
                     type: "unique-value", // autocasts as new UniqueValueRenderer()
                     defaultSymbol: {
@@ -185,7 +222,7 @@
                         symbolLayers: [{
                             type: "extrude", // autocasts as new ExtrudeSymbol3DLayer()
                             material: {
-                                color: [204, 204, 204, 0.3],
+                                color: [204, 204, 204, 0.8],
                             },
                             edges: {
                                 type: "solid",
@@ -199,12 +236,12 @@
                     field: "Tilgjengelighet",
                     uniqueValueInfos: [{
                         value: "Opptatt",
-                        symbol: PresentSymbol,
-                        label: "PresentSymbol"
+                        symbol: OpptattSymbol,
+                        label: "OpptattSymbol"
                     }, {
                         value: "Ledig",
-                        symbol: NotPresentSymbol,
-                        label: "NOT_PRESENT"
+                        symbol: LedigSymbol,
+                        label: "LedigSymbol"
                     }],
 
                 };
@@ -542,23 +579,23 @@
 
 
                 const geodataDigitaltvilling_rom = new SceneLayer({
-                    url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    renderer: EdgeRenderer,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: EdgeRenderer,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
-            );
+                );
 
                 const geodataDigitaltvilling_rom_etg01 = new FeatureLayer({
                         url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer",
@@ -581,24 +618,24 @@
                 );
 
                 const geodataDigitaltvilling_rom_etg01_booking = new FeatureLayer({
-                    url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer",
-                    definitionExpression: "Tilgjengelighet NOT LIKE ''",
-                    outFields: ["*"],
-                    purgeOptions: {
-                        displayCount: 1000
-                    },
-                    renderer: RomBooking,
-                    //popupTemplate: template,
-                    refreshInterval: 0.01,
-                    elevationInfo: {
-                        // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                        mode: "absolute-height",
-                        offset: 2.8
-                    },
+                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer",
+                        definitionExpression: "Tilgjengelighet NOT LIKE ''",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: RomBooking,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
 
-                }
+                    }
 
-            );
+                );
 
                 const geodataDigitaltvilling_plan = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_plan/SceneServer",
@@ -868,6 +905,12 @@
                     }
 
                 });
+
+
+                //-----------------Graf/statestikkWidget------------------------
+
+
+
 
                 view.watch("scale", function(newValue) {
                     //geodataDigitaltvilling_rom_wc_etg01.renderer = newValue <= 72224 ? simpleRenderer : DisTechRendrerPROX;
