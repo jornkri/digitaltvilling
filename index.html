@@ -36,10 +36,10 @@
 
 
     <div id="viewDiv">
-        <button class="esri-widget--button esri-icon-map-pin geometry-button toolButton" id="point-geometry-button" value="point" title="Query by point"></button>
+        <button class="esri-widget--button esri-icon-map-pin geometry-button toolButton" id="point-geometry-button" value="point" title="Historiske data"></button>
         <div id="resultDiv" class="esri-widget">
             <div class="count">
-                Selected Buildings:
+                Valgte rom:
                 <div class="count" id="count">0</div>
             </div>
             <div class="charts">
@@ -47,7 +47,7 @@
                     <canvas id="year-chart" height="250" width="260" />
                 </div>
                 <div>
-                    <canvas id="material-chart" width="250" height="300" />
+                    <canvas id="temp-chart" width="250" height="300" />
                 </div>
             </div>
         </div>
@@ -554,8 +554,7 @@
                 //-----------------------LAG------------------------------------------------------
 
                 const sketchLayer = new GraphicsLayer();
-                const dateDefFra = Date('August 20, 2019 00:01:00');
-                const dateDefTil = Date('August 19, 2019 23:59:00');
+
 
 
 
@@ -933,7 +932,7 @@
                 //-----------------Graf/statestikkWidget------------------------
 
                 var yearChart = null;
-                var materialChart = null;
+                var tempChart = null;
 
                 // use SketchViewModel to draw polygons that are used as a query
                 let sketchGeometry = null;
@@ -1022,30 +1021,36 @@
 
                 function queryStatistics() {
                     const statDefinitions = [{
-                        onStatisticField: "CASE WHEN (date >= '2019-08-15' AND date <= '2019-07-21' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
-                        outStatisticFieldName: "uke29",
-                        statisticType: "sum"
-                    }, {
-                        onStatisticField: "CASE WHEN (date >= '2019-07-22' AND date <= '2019-07-28' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
-                        outStatisticFieldName: "uke30",
-                        statisticType: "sum"
-                    }, {
-                        onStatisticField: "CASE WHEN (date >= '2019-07-29' AND date <= '2019-08-04' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
-                        outStatisticFieldName: "uke31",
-                        statisticType: "sum"
-                    }, {
-                        onStatisticField: "CASE WHEN (date >= '2019-08-05' AND date <= '2019-08-11' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
-                        outStatisticFieldName: "uke32",
-                        statisticType: "sum"
-                    }, {
-                        onStatisticField: "CASE WHEN (date >= '2019-08-12' AND date <= '2019-08-18' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
-                        outStatisticFieldName: "uke33",
-                        statisticType: "sum"
-                    }, {
-                        onStatisticField: "CASE WHEN (date >= '2019-08-19' AND date <= '2019-08-25' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
-                        outStatisticFieldName: "uke34",
-                        statisticType: "sum"
-                    }];
+                            onStatisticField: "CASE WHEN (date >= '2019-08-15' AND date <= '2019-07-21' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                            outStatisticFieldName: "uke29",
+                            statisticType: "sum"
+                        }, {
+                            onStatisticField: "CASE WHEN (date >= '2019-07-22' AND date <= '2019-07-28' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                            outStatisticFieldName: "uke30",
+                            statisticType: "sum"
+                        }, {
+                            onStatisticField: "CASE WHEN (date >= '2019-07-29' AND date <= '2019-08-04' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                            outStatisticFieldName: "uke31",
+                            statisticType: "sum"
+                        }, {
+                            onStatisticField: "CASE WHEN (date >= '2019-08-05' AND date <= '2019-08-11' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                            outStatisticFieldName: "uke32",
+                            statisticType: "sum"
+                        }, {
+                            onStatisticField: "CASE WHEN (date >= '2019-08-12' AND date <= '2019-08-18' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                            outStatisticFieldName: "uke33",
+                            statisticType: "sum"
+                        }, {
+                            onStatisticField: "CASE WHEN (date >= '2019-08-19' AND date <= '2019-08-25' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                            outStatisticFieldName: "uke34",
+                            statisticType: "sum"
+                        }
+                        //  {
+                        //     onStatisticField: "CASE WHEN (date >= '2019-08-12' AND date <= '2019-08-18' AND Temp = 'PRESENT') THEN 1 ELSE 0 END",
+                        //     outStatisticFieldName: "uke33",
+                        //     statisticType: "sum"
+                        // },
+                    ];
 
                     const query = geodataDigitaltvilling_rom_etg01.createQuery();
                     query.geometry = sketchGeometry;
@@ -1064,10 +1069,13 @@
                         proxLayer.queryFeatures(query2).then(function(result) {
                             const allStats = result.features[0].attributes;
 
-                            updateChart(materialChart, [
-                                allStats.present,
-                                allStats.not_present,
-
+                            updateChart(tempChart, [
+                                allStats.uke29,
+                                allStats.uke30,
+                                allStats.uke31,
+                                allStats.uke32,
+                                allStats.uke33,
+                                allStats.uke34,
                             ]);
                             updateChart(yearChart, [
                                 allStats.uke29,
@@ -1091,15 +1099,15 @@
                 function createYearChart() {
                     const yearCanvas = document.getElementById("year-chart");
                     yearChart = new Chart(yearCanvas.getContext("2d"), {
-                        type: "horizontalBar",
+                        type: "line",
                         data: {
                             labels: [
-                                "Uke 29",
-                                "Uke 30",
-                                "Uke 31",
-                                "Uke 32",
-                                "Uke 33",
-                                "Uke 34"
+                                "29",
+                                "30",
+                                "31",
+                                "32",
+                                "33",
+                                "34"
                             ],
                             datasets: [{
                                 label: "Antall besøk per uke",
@@ -1133,46 +1141,90 @@
                     });
                 }
 
-                function createMaterialChart() {
-                    const materialCanvas = document.getElementById("material-chart");
-                    materialChart = new Chart(materialCanvas.getContext("2d"), {
-                        type: "doughnut",
+                function createTempChart() {
+                    const tempCanvas = document.getElementById("temp-chart");
+                    tempChart = new Chart(tempCanvas.getContext("2d"), {
+                        type: "radar",
                         data: {
-                            labels: ["Concrete", "Brick", "Wood", "Steel", "Other"],
+                            labels: [
+                                "29",
+                                "30",
+                                "31",
+                                "32",
+                                "33",
+                                "34"
+                            ],
                             datasets: [{
-                                backgroundColor: [
-                                    "#FD7F6F",
-                                    "#7EB0D5",
-                                    "#B2E061",
-                                    "#BD7EBE",
-                                    "#FFB55A"
-                                ],
-                                borderWidth: 0,
-                                data: [0, 0, 0, 0, 0]
+                                label: "Temperatur",
+                                backgroundColor: "#149dcf",
+                                stack: "Stack 0",
+                                data: [0, 0, 0, 0, 0, 0]
                             }]
                         },
                         options: {
                             responsive: false,
-                            cutoutPercentage: 35,
                             legend: {
-                                position: "bottom"
+                                display: false
                             },
                             title: {
                                 display: true,
-                                text: "Building Material"
+                                text: "Temperatur"
+                            },
+                            scales: {
+                                xAxes: [{
+                                    stacked: true,
+                                    ticks: {
+                                        beginAtZero: true,
+                                        precision: 0
+                                    }
+                                }],
+                                yAxes: [{
+                                    stacked: true
+                                }]
                             }
                         }
                     });
                 }
+                // function createMaterialChart() {
+                //     const materialCanvas = document.getElementById("material-chart");
+                //     materialChart = new Chart(materialCanvas.getContext("2d"), {
+                //         type: "doughnut",
+                //         data: {
+                //             labels: ["Concrete", "Brick", "Wood", "Steel", "Other"],
+                //             datasets: [{
+                //                 backgroundColor: [
+                //                     "#FD7F6F",
+                //                     "#7EB0D5",
+                //                     "#B2E061",
+                //                     "#BD7EBE",
+                //                     "#FFB55A"
+                //                 ],
+                //                 borderWidth: 0,
+                //                 data: [0, 0, 0, 0, 0]
+                //             }]
+                //         },
+                //         options: {
+                //             responsive: false,
+                //             cutoutPercentage: 35,
+                //             legend: {
+                //                 position: "bottom"
+                //             },
+                //             title: {
+                //                 display: true,
+                //                 text: "Building Material"
+                //             }
+                //         }
+                //     });
+                // }
 
                 function clearCharts() {
-                    updateChart(materialChart, [0, 0, 0, 0, 0]);
-                    updateChart(yearChart, [0, 0, 0, 0, 0, 0]);
+                    updateChart(tempChart, [0, 0, 0, 0, 0]);
+                    updateChart(yearChart, [0, 0, 0, 0, 0]);
                     document.getElementById("count").innerHTML = 0;
                 }
 
                 createYearChart();
-                createMaterialChart();
+                createTempChart();
 
                 //-------------------------------------------------------------------------
 
