@@ -35,7 +35,23 @@
 <body>
 
 
-    <div id="viewDiv"></div>
+    <div id="viewDiv">
+        <button class="esri-widget--button esri-icon-map-pin geometry-button toolButton" id="point-geometry-button" value="point" title="Query by point"></button>
+        <div id="resultDiv" class="esri-widget">
+            <div class="count">
+                Selected Buildings:
+                <div class="count" id="count">0</div>
+            </div>
+            <div class="charts">
+                <div>
+                    <canvas id="year-chart" height="250" width="260" />
+                </div>
+                <div>
+                    <canvas id="material-chart" width="250" height="300" />
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -299,7 +315,7 @@
                         }]
                     },
                     defaultLabel: "Other",
-                    field: "Status",
+                    field: "status",
                     uniqueValueInfos: [{
                         value: "PRESENT",
                         symbol: PresentSymbol,
@@ -537,25 +553,11 @@
 
                 //-----------------------LAG------------------------------------------------------
 
+                const sketchLayer = new GraphicsLayer();
+                const dateDefFra = Date('August 20, 2019 00:01:00');
+                const dateDefTil = Date('August 19, 2019 23:59:00');
 
-                const geodataDigitaltvilling_kursrom_NorDIGI_sensor = new FeatureLayer({
-                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_Geodata/FeatureServer/3",
-                        outFields: ["*"],
-                        purgeOptions: {
-                            displayCount: 1000
-                        },
-                        renderer: FlateRendererNordigi,
-                        //popupTemplate: template,
-                        refreshInterval: 0.01,
-                        elevationInfo: {
-                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                            mode: "absolute-height",
-                            offset: 2.8
-                        },
 
-                    }
-
-                );
 
 
                 const geodataDigitaltvilling_kursrom_PROX_sensor = new FeatureLayer({
@@ -565,26 +567,6 @@
                             displayCount: 1000
                         },
                         renderer: DisTechRendrerPROXplass,
-                        //popupTemplate: template,
-                        refreshInterval: 0.01,
-                        elevationInfo: {
-                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                            mode: "absolute-height",
-                            offset: 2.8
-                        },
-
-                    }
-
-                );
-
-
-                const geodataDigitaltvilling_rom = new SceneLayer({
-                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
-                        outFields: ["*"],
-                        purgeOptions: {
-                            displayCount: 1000
-                        },
-                        renderer: EdgeRenderer,
                         //popupTemplate: template,
                         refreshInterval: 0.01,
                         elevationInfo: {
@@ -625,6 +607,66 @@
                             displayCount: 1000
                         },
                         renderer: RomBooking,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
+
+                    }
+
+                );
+
+                const personDigitaltvilling = new FeatureLayer({
+                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/PersonerDigitalTvilling/FeatureServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: pointsRenderer,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 0
+                        },
+
+                    }
+
+                );
+
+                const Plasser = new FeatureLayer({
+                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/ArcGIS/rest/services/Arbeidsplass_Poly/FeatureServer/0",
+
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: DisTechRendrerPROXplass,
+                        opacity: 0.8,
+
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
+
+                    }
+
+                );
+
+                const geodataDigitaltvilling_rom = new SceneLayer({
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        renderer: EdgeRenderer,
                         //popupTemplate: template,
                         refreshInterval: 0.01,
                         elevationInfo: {
@@ -789,25 +831,6 @@
 
                 );
 
-                const personDigitaltvilling = new FeatureLayer({
-                        url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/PersonerDigitalTvilling/FeatureServer",
-                        outFields: ["*"],
-                        purgeOptions: {
-                            displayCount: 1000
-                        },
-                        renderer: pointsRenderer,
-                        //popupTemplate: template,
-                        refreshInterval: 0.01,
-                        elevationInfo: {
-                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
-                            mode: "absolute-height",
-                            offset: 0
-                        },
-
-                    }
-
-                );
-
                 const Bygninger_Norge_Oslo = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/PdUYt91ohJfR04kk/arcgis/rest/services/Bygninger_Norge_OsloSommerkonf_20180730_124537/SceneServer",
                         definitionExpression: defExpression,
@@ -830,9 +853,8 @@
 
                 );
 
-
                 const Bygninger_Norge_Oslo_highligted = new SceneLayer({
-                        url: "https://tiles.arcgis.com/tiles/PdUYt91ohJfR04kk/arcgis/rest/services/Bygninger_Norge_OsloSommerkonf_20180730_124537/SceneServer",
+                        url: "https://utility.arcgis.com/usrsvcs/servers/d10b1ff653234cd08a3fc7da78820a14/rest/services/geoscene/GeosceneBygning/SceneServer",
                         definitionExpression: defExpressionHiglight,
                         outFields: ["*"],
                         purgeOptions: {
@@ -858,7 +880,7 @@
 
                 var basemap = new Basemap({
                     portalItem: {
-                        id: "c6cd79d600094e3d83a08cad9d3c1aa0" // gråtone
+                        id: "a1f189886ef54c5b8e03e37695e8925d" // WGS84 Streets Vector webmap
                     }
                 });
 
@@ -873,9 +895,9 @@
                 var map = new Map({
                     basemap: basemap,
                     //ground: "world-elevation",
-                    layers: [geodataDigitaltvilling_rom_etg01_booking, personDigitaltvilling, Bygninger_Norge_Oslo_highligted, geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
+                    layers: [Plasser, geodataDigitaltvilling_rom_etg01_booking, personDigitaltvilling, Bygninger_Norge_Oslo_highligted, geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
                     ground: {
-                        surfaceColor: "#2A282B"
+                        //surfaceColor: "#2A282B"
                     }
                 });
 
@@ -887,14 +909,14 @@
                     map: map,
                     alphaCompositingEnabled: true,
                     environment: {
-                        background: {
-                            type: "color", // autocasts as new ColorBackground()
-                            color: "#2A282B"
-                        },
+                        // background: {
+                        //     type: "color", // autocasts as new ColorBackground()
+                        //     color: "#2A282B"
+                        // },
                         // disable stars
                         starsEnabled: false,
                         //disable atmosphere
-                        atmosphereEnabled: false
+                        atmosphereEnabled: true
                     },
                     qualityProfile: "high",
                     center: {
@@ -902,15 +924,257 @@
                         y: 6649010.9098,
                         z: 100,
                         spatialReference: 25833
-                    }
+                    },
+                    qualityProfile: "high"
 
                 });
 
 
                 //-----------------Graf/statestikkWidget------------------------
 
+                var yearChart = null;
+                var materialChart = null;
+
+                // use SketchViewModel to draw polygons that are used as a query
+                let sketchGeometry = null;
+                const sketchViewModel = new SketchViewModel({
+                    layer: sketchLayer,
+                    defaultUpdateOptions: {
+                        tool: "reshape",
+                        toggleToolOnClick: false
+                    },
+                    view: view
+                });
+
+                sketchViewModel.on("create", function(event) {
+                    if (event.state === "complete") {
+                        sketchGeometry = event.graphic.geometry;
+                        runQuery();
+                    }
+                });
+
+                sketchViewModel.on("update", function(event) {
+                    if (event.state !== "cancel" && event.graphics.length) {
+                        sketchGeometry = event.graphics[0].geometry;
+                        runQuery();
+                    }
+                });
+
+                // draw geometry buttons - use the selected geometry to sktech
+                document
+                    .getElementById("point-geometry-button")
+                    .addEventListener("click", geometryButtonsClickHandler);
+
+                function geometryButtonsClickHandler(event) {
+                    const geometryType = event.target.value;
+                    //clearGeometry();
+                    sketchViewModel.create(geometryType);
+                }
+
+                // set the geometry query on the visible SceneLayerView
+                var debouncedRunQuery = promiseUtils.debounce(function() {
+                    if (!sketchGeometry) {
+                        return;
+                    }
+
+                    resultDiv.style.display = "block";
+                    return promiseUtils.eachAlways([
+                        queryStatistics(),
+                        //updateSceneLayer()
+                    ]);
+                });
+
+                function runQuery() {
+                    debouncedRunQuery().catch((error) => {
+                        if (error.name === "AbortError") {
+                            return;
+                        }
+
+                        console.error(error);
+                    });
+                }
+
+                // Set the renderer with objectIds
+                var highlightHandle = null;
+
+                function clearHighlighting() {
+                    if (highlightHandle) {
+                        highlightHandle.remove();
+                        highlightHandle = null;
+                    }
+                }
+
+                function highlightBuildings(objectIds) {
+                    // Remove any previous highlighting
+                    clearHighlighting();
+                    const objectIdField = geodataDigitaltvilling_rom_etg01.objectIdField;
+                    document.getElementById("count").innerHTML = objectIds.length;
+
+                    highlightHandle = geodataDigitaltvilling_rom_etg01.highlight(objectIds);
+                }
+
+                function updateSceneLayer() {
+                    const query = geodataDigitaltvilling_rom_etg01.createQuery();
+                    query.geometry = sketchGeometry;
+                    return geodataDigitaltvilling_rom_etg01.queryObjectIds(query).then(highlightBuildings);
+                }
 
 
+                function queryStatistics() {
+                    const statDefinitions = [{
+                        onStatisticField: "CASE WHEN (date >= '2019-08-15' AND date <= '2019-07-21' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                        outStatisticFieldName: "uke29",
+                        statisticType: "sum"
+                    }, {
+                        onStatisticField: "CASE WHEN (date >= '2019-07-22' AND date <= '2019-07-28' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                        outStatisticFieldName: "uke30",
+                        statisticType: "sum"
+                    }, {
+                        onStatisticField: "CASE WHEN (date >= '2019-07-29' AND date <= '2019-08-04' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                        outStatisticFieldName: "uke31",
+                        statisticType: "sum"
+                    }, {
+                        onStatisticField: "CASE WHEN (date >= '2019-08-05' AND date <= '2019-08-11' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                        outStatisticFieldName: "uke32",
+                        statisticType: "sum"
+                    }, {
+                        onStatisticField: "CASE WHEN (date >= '2019-08-12' AND date <= '2019-08-18' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                        outStatisticFieldName: "uke33",
+                        statisticType: "sum"
+                    }, {
+                        onStatisticField: "CASE WHEN (date >= '2019-08-19' AND date <= '2019-08-25' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
+                        outStatisticFieldName: "uke34",
+                        statisticType: "sum"
+                    }];
+
+                    const query = geodataDigitaltvilling_rom_etg01.createQuery();
+                    query.geometry = sketchGeometry;
+
+                    geodataDigitaltvilling_rom_etg01.queryFeatures(query).then(function(result) {
+                        const guid = result.features[0].attributes.GlobalID;
+
+                        const proxLayer = new FeatureLayer({
+                            url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer/2"
+                        });
+
+                        const query2 = proxLayer.createQuery();
+                        query2.where = `RomGUID = '${guid}'`;
+                        query2.outStatistics = statDefinitions;
+
+                        proxLayer.queryFeatures(query2).then(function(result) {
+                            const allStats = result.features[0].attributes;
+
+                            updateChart(materialChart, [
+                                allStats.present,
+                                allStats.not_present,
+
+                            ]);
+                            updateChart(yearChart, [
+                                allStats.uke29,
+                                allStats.uke30,
+                                allStats.uke31,
+                                allStats.uke32,
+                                allStats.uke33,
+                                allStats.uke34,
+                            ]);
+
+                        }, console.error);
+                    }, console.error);
+                }
+
+                // Updates the given chart with new data
+                function updateChart(chart, dataValues) {
+                    chart.data.datasets[0].data = dataValues;
+                    chart.update();
+                }
+
+                function createYearChart() {
+                    const yearCanvas = document.getElementById("year-chart");
+                    yearChart = new Chart(yearCanvas.getContext("2d"), {
+                        type: "horizontalBar",
+                        data: {
+                            labels: [
+                                "Uke 29",
+                                "Uke 30",
+                                "Uke 31",
+                                "Uke 32",
+                                "Uke 33",
+                                "Uke 34"
+                            ],
+                            datasets: [{
+                                label: "Antall besøk per uke",
+                                backgroundColor: "#149dcf",
+                                stack: "Stack 0",
+                                data: [0, 0, 0, 0, 0, 0]
+                            }]
+                        },
+                        options: {
+                            responsive: false,
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: "Antall besøk per uke"
+                            },
+                            scales: {
+                                xAxes: [{
+                                    stacked: true,
+                                    ticks: {
+                                        beginAtZero: true,
+                                        precision: 0
+                                    }
+                                }],
+                                yAxes: [{
+                                    stacked: true
+                                }]
+                            }
+                        }
+                    });
+                }
+
+                function createMaterialChart() {
+                    const materialCanvas = document.getElementById("material-chart");
+                    materialChart = new Chart(materialCanvas.getContext("2d"), {
+                        type: "doughnut",
+                        data: {
+                            labels: ["Concrete", "Brick", "Wood", "Steel", "Other"],
+                            datasets: [{
+                                backgroundColor: [
+                                    "#FD7F6F",
+                                    "#7EB0D5",
+                                    "#B2E061",
+                                    "#BD7EBE",
+                                    "#FFB55A"
+                                ],
+                                borderWidth: 0,
+                                data: [0, 0, 0, 0, 0]
+                            }]
+                        },
+                        options: {
+                            responsive: false,
+                            cutoutPercentage: 35,
+                            legend: {
+                                position: "bottom"
+                            },
+                            title: {
+                                display: true,
+                                text: "Building Material"
+                            }
+                        }
+                    });
+                }
+
+                function clearCharts() {
+                    updateChart(materialChart, [0, 0, 0, 0, 0]);
+                    updateChart(yearChart, [0, 0, 0, 0, 0, 0]);
+                    document.getElementById("count").innerHTML = 0;
+                }
+
+                createYearChart();
+                createMaterialChart();
+
+                //-------------------------------------------------------------------------
 
                 view.watch("scale", function(newValue) {
                     //geodataDigitaltvilling_rom_wc_etg01.renderer = newValue <= 72224 ? simpleRenderer : DisTechRendrerPROX;
@@ -923,11 +1187,6 @@
                         Bygninger_Norge_Oslo_highligted.visible = true;
                     }
                 });
-
-
-
-
-
             });
     </script>
 

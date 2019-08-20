@@ -30,6 +30,9 @@ body,
     display: none;
     overflow-y: auto;
     overflow-x: hidden;
+    position: absolute;
+    right: 0;
+    height: 50%;
 }
 
 .geometry-options {
@@ -59,4 +62,10 @@ body,
     font-size: 14px;
     font-weight: bold;
     display: inline-block;
+}
+
+.toolButton {
+    position: absolute;
+    top: 20%;
+    left: 20px;
 }
