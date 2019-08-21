@@ -21,54 +21,55 @@
 
     <!-- Load the Chart.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="moment.js"></script>
 
     <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/themes/light/main.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
     <script src="https://js.arcgis.com/4.12/"></script>
 
-
-
-
-
 </head>
 
 
 <body>
-
-
     <div id="viewDiv">
+        <div class="ui raised very padded text container segment minContainer">
+            <h2 class="ui header">Historisk data</h2>
 
-        <button class="esri-widget--button esri-icon-map-pin geometry-button toolButton" id="point-geometry-button" value="point" title="Historiske data"></button>
+            <button class="circular ui icon button pkt" id="point-geometry-button" value="point" title="Historiske data">
+                <i class="map pin icon"></i>
+            </button>
+
+            <button class="circular ui icon button omr" id="point-geometry-button" value="point" title="Historiske data">
+                    <i class="minus icon"></i>
+                </button>
+
+            <button class="circular ui icon button omr" id="point-geometry-button" value="point" title="Historiske data">
+                    <i class="map icon"></i>
+                </button>
+
+        </div>
 
 
-        <div id="resultDiv" class="esri-widget">
-            <div class="count">
-                Valgte rom:
-                <div class="count" id="count">0</div>
-            </div>
+
+        <div id="resultDiv" class="esri-widget esri-widget--panel">
+            <i id="closeIcon" onClick="closeHistoricalData()" class="close icon"></i>
+            <div class="roomName" id="roomName"></div>
             <div class="charts">
                 <div>
-                    <canvas id="year-chart" height="250" width="260" />
+                    <canvas id="year-chart" height="250" width="400" />
                 </div>
-                <!-- <h4 class="ui horizontal divider header">
-                    <i class="bar chart icon"></i> Specifications
-                </h4> -->
                 <div>
-                    <canvas id="temp-chart" width="250" height="300" />
+                    <canvas id="temp-chart" width="400" height="400" />
                 </div>
             </div>
             <div id="typeBilde">
                 <div class="typeText">
+                    <p></p>
                     Sensor i valgte rom
                 </div>
-                <!-- <div class="ui mini images">
-                    <img class="ui image" src="icon/Temp.png">
-                    <img class="ui image" src="icon/Temp.png">
-                    <img class="ui image" src="icon/Temp.png">
-                </div> -->
-                <img id="temp" src="icon/Temp.png" alt="Temp">
-                <img id="temp" src="icon/Touch.png" alt="Touch">
-                <img id="temp" src="icon/Prox.png" alt="Prox">
+                <img id="tempImg" src="icon/Temp.png" alt="Temp">
+                <img id="touchImg" src="icon/Touch.png" alt="Touch">
+                <img id="proxImg" src="icon/Prox.png" alt="Prox">
             </div>
         </div>
     </div>
@@ -94,9 +95,11 @@
                 "esri/Graphic",
                 "esri/renderers/ClassBreaksRenderer",
                 "esri/widgets/Slider",
-                "esri/core/promiseUtils"
+                "esri/core/promiseUtils",
+                "esri/widgets/LayerList",
+                "esri/widgets/Expand",
             ],
-            function(Map, WebScene, SceneView, Basemap, Layer, SceneLayer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer, Slider, promiseUtils) {
+            function(Map, WebScene, SceneView, Basemap, Layer, SceneLayer, FeatureLayer, ElevationLayer, GraphicsLayer, SketchViewModel, WebStyleSymbol, Graphic, geometryEngine, FeatureFilter, ClassBreaksRenderer, Slider, promiseUtils, LayerList, Expand) {
 
 
                 const defExpression = "byggnr <> 81809542 AND byggnr <> 81809569 AND byggnr <> 81809488";
@@ -581,6 +584,7 @@
 
                 const geodataDigitaltvilling_kursrom_PROX_sensor = new FeatureLayer({
                         url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/Kursplass/FeatureServer",
+                        title: "Kursplasser",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -600,6 +604,7 @@
 
                 const geodataDigitaltvilling_rom_etg01 = new FeatureLayer({
                         url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer",
+                        title: "Sensorer",
                         definitionExpression: "SensorID_Touch NOT LIKE '' OR SensorID_Temp NOT LIKE '' OR SensorID NOT LIKE ''",
                         outFields: ["*"],
                         purgeOptions: {
@@ -620,6 +625,7 @@
 
                 const geodataDigitaltvilling_rom_etg01_booking = new FeatureLayer({
                         url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer",
+                        title: "Rom booking -- Sensor",
                         definitionExpression: "Tilgjengelighet NOT LIKE ''",
                         outFields: ["*"],
                         purgeOptions: {
@@ -640,6 +646,8 @@
 
                 const personDigitaltvilling = new FeatureLayer({
                         url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/PersonerDigitalTvilling/FeatureServer",
+                        title: "Arbeidere",
+                        listMode: "hide",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -659,7 +667,7 @@
 
                 const Plasser = new FeatureLayer({
                         url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/ArcGIS/rest/services/Arbeidsplass_Poly/FeatureServer/0",
-
+                        title: "Arbeidsplasser -- Sensor",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -681,6 +689,8 @@
 
                 const geodataDigitaltvilling_rom = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
+                        title: "Vegger",
+                        listMode: "hide",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -700,6 +710,7 @@
 
                 const geodataDigitaltvilling_plan = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_plan/SceneServer",
+                        title: "Planskisse",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -719,6 +730,8 @@
 
                 const geodataDigitaltvilling_langbord = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_langbord/SceneServer",
+                        title: "Langbord",
+                        listMode: "hide",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -738,6 +751,8 @@
 
                 const geodataDigitaltvilling_WC = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_WC/SceneServer",
+                        title: "WC",
+                        listMode: "hide",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -757,6 +772,8 @@
 
                 const geodataDigitaltvilling_Trapp = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Trapp/SceneServer",
+                        title: "Trapp",
+                        listMode: "hide",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -776,6 +793,8 @@
 
                 const geodataDigitaltvilling_Soyler = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_S%C3%B8yler/SceneServer",
+                        title: "Søyler",
+                        listMode: "hide",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -795,6 +814,8 @@
 
                 const geodataDigitaltvilling_Planter = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Planter/SceneServer",
+                        title: "Planter",
+                        listMode: "hide",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -814,6 +835,8 @@
 
                 const geodataDigitaltvilling_Bokhylle = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Bokhylle/SceneServer",
+                        title: "Bokhylle",
+                        listMode: "hide",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -833,6 +856,8 @@
 
                 const geodataDigitaltvilling_Arbeidsplass = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Arbeidsplass/SceneServer",
+                        title: "Arbeidsbord",
+                        listMode: "hide",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -852,6 +877,8 @@
 
                 const Bygninger_Norge_Oslo = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/PdUYt91ohJfR04kk/arcgis/rest/services/Bygninger_Norge_OsloSommerkonf_20180730_124537/SceneServer",
+                        title: "Bygninger",
+                        listMode: "hide",
                         definitionExpression: defExpression,
                         outFields: ["*"],
                         purgeOptions: {
@@ -874,6 +901,8 @@
 
                 const Bygninger_Norge_Oslo_highligted = new SceneLayer({
                         url: "https://utility.arcgis.com/usrsvcs/servers/d10b1ff653234cd08a3fc7da78820a14/rest/services/geoscene/GeosceneBygning/SceneServer",
+                        title: "Mine bygg",
+                        listMode: "hide",
                         definitionExpression: defExpressionHiglight,
                         outFields: ["*"],
                         purgeOptions: {
@@ -946,6 +975,21 @@
                     },
                     qualityProfile: "high"
 
+                });
+
+                view.when(function() {
+                    var layerList = new LayerList({
+                        view: view
+                    });
+
+                    var bgExpand = new Expand({
+                        view: view,
+                        content: layerList
+                    });
+
+
+                    // Add widget to the top right corner of the view
+                    view.ui.add(bgExpand, "top-left");
                 });
 
 
@@ -1038,7 +1082,6 @@
                     return geodataDigitaltvilling_rom_etg01.queryObjectIds(query).then(highlightBuildings);
                 }
 
-
                 function queryStatistics() {
                     const statDefinitions = [{
                             onStatisticField: "CASE WHEN (date >= '2019-08-15' AND date <= '2019-07-21' AND Status = 'PRESENT') THEN 1 ELSE 0 END",
@@ -1078,6 +1121,19 @@
                     geodataDigitaltvilling_rom_etg01.queryFeatures(query).then(function(result) {
                         const guid = result.features[0].attributes.GlobalID;
 
+                        // Set visible sensorImages based on attributes
+                        const feature = result.features[0].attributes;
+                        var proxImg = document.getElementById('proxImg');
+                        var tempImg = document.getElementById('tempImg');
+                        var touchImg = document.getElementById('touchImg');
+                        proxImg.style.visibility = feature.SensorID === null ? proxImg.classList.add('sensorNotPresent') : proxImg.classList.remove('sensorNotPresent');
+                        tempImg.style.visibility = feature.SensorID_Temp === null ? tempImg.classList.add('sensorNotPresent') : tempImg.classList.remove('sensorNotPresent');
+                        touchImg.style.visibility = feature.SensorID_Touch === null ? touchImg.classList.add('sensorNotPresent') : touchImg.classList.remove('sensorNotPresent');
+
+                        // Set roomname
+                        document.getElementById('roomName').innerHTML = feature.Romnavn;
+
+                        //Get proximity values
                         const proxLayer = new FeatureLayer({
                             url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer/2"
                         });
@@ -1089,14 +1145,6 @@
                         proxLayer.queryFeatures(query2).then(function(result) {
                             const allStats = result.features[0].attributes;
 
-                            updateChart(tempChart, [
-                                allStats.uke29,
-                                allStats.uke30,
-                                allStats.uke31,
-                                allStats.uke32,
-                                allStats.uke33,
-                                allStats.uke34,
-                            ]);
                             updateChart(yearChart, [
                                 allStats.uke29,
                                 allStats.uke30,
@@ -1107,13 +1155,53 @@
                             ]);
 
                         }, console.error);
+
+                        // Get temperature values
+                        const tempLayer = new FeatureLayer({
+                            url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer/3"
+                        });
+
+                        const query3 = tempLayer.createQuery();
+
+                        var currentTime = new Date();
+                        var twoWeeksAgo = currentTime.setDate(currentTime.getDate() - 14);
+
+                        query3.where = `RomGUID = '${guid}' AND date >= '2019-08-21'`;
+
+                        tempLayer.queryFeatures(query3).then(function(result) {
+                            const allStats = result.features;
+
+                            updateTempChart(tempChart, allStats);
+
+                        }, console.error);
                     }, console.error);
                 }
 
                 // Updates the given chart with new data
                 function updateChart(chart, dataValues) {
-                    chart.data.datasets[0].data = dataValues;
-                    chart.update();
+                    if (dataValues[0] === null) {
+                        document.getElementById('year-chart').style.display = 'none';
+                    } else {
+                        document.getElementById('year-chart').style.display = 'block';
+                        chart.data.datasets[0].data = dataValues;
+                        chart.update();
+                    }
+                }
+
+                function updateTempChart(chart, dataValues) {
+                    if (dataValues.length === 0) {
+                        document.getElementById('temp-chart').style.display = 'none';
+                    } else {
+                        document.getElementById('temp-chart').style.display = 'block';
+                        chart.data.labels = dataValues.map((dv) => {
+                            return moment(dv.attributes.Date).format("HH");
+                        });
+                        chart.data.datasets[0].data = dataValues.map((dv) => {
+                            return dv.attributes.Temp;
+                        });
+                        chart.update();
+                    }
+
                 }
 
                 function createYearChart() {
@@ -1194,12 +1282,16 @@
                                 xAxes: [{
                                     stacked: true,
                                     ticks: {
-                                        beginAtZero: true,
-                                        precision: 0
+                                        display: true,
+                                        autoSkip: true,
+                                        maxTicksLimit: 7
                                     }
                                 }],
                                 yAxes: [{
-                                    stacked: true
+                                    ticks: {
+                                        min: 15,
+                                        max: 25
+                                    }
                                 }]
                             }
                         }
@@ -1260,6 +1352,10 @@
                     }
                 });
             });
+
+        function closeHistoricalData() {
+            document.getElementById("resultDiv").style.display = "none";
+        }
     </script>
 
 
