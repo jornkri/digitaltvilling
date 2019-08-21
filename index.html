@@ -23,6 +23,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 
     <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/themes/light/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
     <script src="https://js.arcgis.com/4.12/"></script>
 
 
@@ -36,7 +37,10 @@
 
 
     <div id="viewDiv">
+
         <button class="esri-widget--button esri-icon-map-pin geometry-button toolButton" id="point-geometry-button" value="point" title="Historiske data"></button>
+
+
         <div id="resultDiv" class="esri-widget">
             <div class="count">
                 Valgte rom:
@@ -46,9 +50,25 @@
                 <div>
                     <canvas id="year-chart" height="250" width="260" />
                 </div>
+                <!-- <h4 class="ui horizontal divider header">
+                    <i class="bar chart icon"></i> Specifications
+                </h4> -->
                 <div>
                     <canvas id="temp-chart" width="250" height="300" />
                 </div>
+            </div>
+            <div id="typeBilde">
+                <div class="typeText">
+                    Sensor i valgte rom
+                </div>
+                <!-- <div class="ui mini images">
+                    <img class="ui image" src="icon/Temp.png">
+                    <img class="ui image" src="icon/Temp.png">
+                    <img class="ui image" src="icon/Temp.png">
+                </div> -->
+                <img id="temp" src="icon/Temp.png" alt="Temp">
+                <img id="temp" src="icon/Touch.png" alt="Touch">
+                <img id="temp" src="icon/Prox.png" alt="Prox">
             </div>
         </div>
     </div>
@@ -580,7 +600,7 @@
 
                 const geodataDigitaltvilling_rom_etg01 = new FeatureLayer({
                         url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer",
-                        definitionExpression: "SensorID NOT LIKE ''",
+                        definitionExpression: "SensorID_Touch NOT LIKE '' OR SensorID_Temp NOT LIKE '' OR SensorID NOT LIKE ''",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -1099,7 +1119,7 @@
                 function createYearChart() {
                     const yearCanvas = document.getElementById("year-chart");
                     yearChart = new Chart(yearCanvas.getContext("2d"), {
-                        type: "line",
+                        type: "horizontalBar",
                         data: {
                             labels: [
                                 "29",
@@ -1144,7 +1164,7 @@
                 function createTempChart() {
                     const tempCanvas = document.getElementById("temp-chart");
                     tempChart = new Chart(tempCanvas.getContext("2d"), {
-                        type: "radar",
+                        type: "line",
                         data: {
                             labels: [
                                 "29",

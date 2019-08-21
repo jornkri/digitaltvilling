@@ -24,7 +24,7 @@ body,
 
 #queryDiv,
 #resultDiv {
-    min-width: 250px;
+    min-width: 280px;
     font-size: 14px;
     padding: 10px;
     display: none;
@@ -69,4 +69,18 @@ body,
     position: absolute;
     top: 17%;
     left: 16px;
+}
+
+#typeBilde img {
+    vertical-align: middle;
+    border-style: none;
+    width: 50px;
+    border: 10px;
+}
+
+.typeTekst {
+    white-space: nowrap;
+    font-size: 50px;
+    font-weight: bold;
+    display: inline-block;
 }
