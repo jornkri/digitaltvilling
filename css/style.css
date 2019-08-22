@@ -116,7 +116,7 @@ body,
     position: absolute !important;
     bottom: 20px !important;
     left: 20px !important;
-    width: 9% !important;
+    width: 12.1% !important;
     height: 8% !important;
     background-color: #33A7B7 !important;
     opacity: 0.8 !important;
@@ -141,7 +141,6 @@ body,
     background: #e0e1e2 none;
     color: rgba(0, 0, 0, .6);
     font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    margin: 0 .25em 0 0;
     padding: .78571429em 1.5em .78571429em;
     text-transform: none;
     text-shadow: none;
@@ -167,7 +166,7 @@ body,
 
 .ui.header {
     position: absolute;
-    left: 35px;
+    left: 28px;
     top: 12px;
     margin: calc(2rem - .14285714em) 0 1rem;
     padding: 0 0;
