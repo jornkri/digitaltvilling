@@ -585,6 +585,7 @@
                 const geodataDigitaltvilling_kursrom_PROX_sensor = new FeatureLayer({
                         url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/Kursplass/FeatureServer",
                         title: "Kursplasser",
+                        visible: false,
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -605,6 +606,7 @@
                 const geodataDigitaltvilling_rom_etg01 = new FeatureLayer({
                         url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer",
                         title: "Sensorer",
+                        visible: false,
                         definitionExpression: "SensorID_Touch NOT LIKE '' OR SensorID_Temp NOT LIKE '' OR SensorID NOT LIKE ''",
                         outFields: ["*"],
                         purgeOptions: {
@@ -626,6 +628,7 @@
                 const geodataDigitaltvilling_rom_etg01_booking = new FeatureLayer({
                         url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/arcgis/rest/services/S28_All_Sensors/FeatureServer",
                         title: "Rom booking -- Sensor",
+                        visible: false,
                         definitionExpression: "Tilgjengelighet NOT LIKE ''",
                         outFields: ["*"],
                         purgeOptions: {
@@ -668,6 +671,7 @@
                 const Plasser = new FeatureLayer({
                         url: "https://services.arcgis.com/2JyTvMWQSnM2Vi8q/ArcGIS/rest/services/Arbeidsplass_Poly/FeatureServer/0",
                         title: "Arbeidsplasser -- Sensor",
+                        visible: false,
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -1166,7 +1170,7 @@
                         var currentTime = new Date();
                         var twoWeeksAgo = currentTime.setDate(currentTime.getDate() - 14);
 
-                        query3.where = `RomGUID = '${guid}' AND date >= '2019-08-21'`;
+                        query3.where = `RomGUID = '${guid}' AND date >= '2019-08-22'`;
 
                         tempLayer.queryFeatures(query3).then(function(result) {
                             const allStats = result.features;
@@ -1194,7 +1198,7 @@
                     } else {
                         document.getElementById('temp-chart').style.display = 'block';
                         chart.data.labels = dataValues.map((dv) => {
-                            return moment(dv.attributes.Date).format("HH");
+                            return moment(dv.attributes.Date).format("HH" + ".00");
                         });
                         chart.data.datasets[0].data = dataValues.map((dv) => {
                             return dv.attributes.Temp;
@@ -1264,7 +1268,7 @@
                             ],
                             datasets: [{
                                 label: "Temperatur",
-                                backgroundColor: "#149dcf",
+                                backgroundColor: "#2B7A78",
                                 stack: "Stack 0",
                                 data: [0, 0, 0, 0, 0, 0]
                             }]
@@ -1289,7 +1293,7 @@
                                 }],
                                 yAxes: [{
                                     ticks: {
-                                        min: 15,
+                                        min: 18,
                                         max: 25
                                     }
                                 }]
