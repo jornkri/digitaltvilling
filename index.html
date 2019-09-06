@@ -52,21 +52,21 @@
         </div> -->
 
         <div style="width: 250px; height: 130px; position: absolute; left: 20px; bottom: 20px; background-color: #33A7B7; opacity: 0.8; padding: 20px;">
-                <h2 style="color: rgba(249, 245, 245, 0.87)">Sensor historikk</h2>
-    
-                <button class="circular ui icon button pkt" id="point-geometry-button" value="point" title="Historiske data">
+            <h2 style="color: rgba(249, 245, 245, 0.87)">Sensor historikk</h2>
+
+            <button class="circular ui icon button pkt" id="point-geometry-button" value="point" title="Historiske data">
                     <i class="map pin icon"></i>
                 </button>
-    
-                <button class="circular ui icon button omr" id="point-geometry-button" value="point" title="Historiske data">
+
+            <button class="circular ui icon button omr" id="point-geometry-button" value="point" title="Historiske data">
                         <i class="minus icon"></i>
                     </button>
-    
-                <button class="circular ui icon button omr" id="point-geometry-button" value="point" title="Historiske data">
+
+            <button class="circular ui icon button omr" id="point-geometry-button" value="point" title="Historiske data">
                         <i class="map icon"></i>
                     </button>
-    
-            </div>
+
+        </div>
 
 
 
@@ -710,15 +710,35 @@
 
                 );
 
-                const geodataDigitaltvilling_rom = new SceneLayer({
-                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
-                        title: "Vegger",
-                        listMode: "hide",
+                // const geodataDigitaltvilling_rom = new SceneLayer({
+                //         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Rom_Massiv/SceneServer",
+                //         title: "Vegger",
+                //         listMode: "hide",
+                //         outFields: ["*"],
+                //         purgeOptions: {
+                //             displayCount: 1000
+                //         },
+                //         renderer: EdgeRenderer,
+                //         //popupTemplate: template,
+                //         refreshInterval: 0.01,
+                //         elevationInfo: {
+                //             // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                //             mode: "absolute-height",
+                //             offset: 2.8
+                //         },
+
+                //     }
+
+                // );
+
+                const geodataDigitaltvilling_gulv = new SceneLayer({
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Gulv/SceneServer",
+                        title: "Gulv",
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
                         },
-                        renderer: EdgeRenderer,
+                        //renderer: DisTechRendrerPROX,
                         //popupTemplate: template,
                         refreshInterval: 0.01,
                         elevationInfo: {
@@ -731,9 +751,117 @@
 
                 );
 
+                const geodataDigitaltvilling_spiler = new SceneLayer({
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_spiler/SceneServer",
+                        title: "Spiler",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
+
+                    }
+
+                );
+
+                const geodataDigitaltvilling_tynnvegg = new SceneLayer({
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Tynnvegg/SceneServer",
+                        title: "Lettvegg",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
+
+                    }
+
+                );
+
+                const geodataDigitaltvilling_innevegg = new SceneLayer({
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_InneVegg/SceneServer",
+                        title: "Innervegg",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
+
+                    }
+
+                );
+
+                const geodataDigitaltvilling_yttervegg = new SceneLayer({
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Yttervegg/SceneServer",
+                        title: "Yttervegg",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
+
+                    }
+
+                );
+
+                const geodataDigitaltvilling_yttervegglass = new SceneLayer({
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_YtterveggGlass/SceneServer",
+                        title: "Yttervegg - Glass",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
+
+                    }
+
+                );
+
+
+
+
+
+
+
+
                 const geodataDigitaltvilling_plan = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_plan/SceneServer",
                         title: "Planskisse",
+                        visible: false,
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -966,7 +1094,7 @@
                 var map = new Map({
                     basemap: basemap,
                     //ground: "world-elevation",
-                    layers: [Plasser, geodataDigitaltvilling_rom_etg01_booking, personDigitaltvilling, Bygninger_Norge_Oslo_highligted, geodataDigitaltvilling_rom, geodataDigitaltvilling_rom_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
+                    layers: [geodataDigitaltvilling_yttervegglass, geodataDigitaltvilling_yttervegg, geodataDigitaltvilling_innevegg, geodataDigitaltvilling_tynnvegg, geodataDigitaltvilling_spiler, geodataDigitaltvilling_gulv, Plasser, geodataDigitaltvilling_rom_etg01_booking, personDigitaltvilling, Bygninger_Norge_Oslo_highligted, geodataDigitaltvilling_rom_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
                     ground: {
                         //surfaceColor: "#2A282B"
                     }
