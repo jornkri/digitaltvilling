@@ -731,9 +731,34 @@
 
                 // );
 
+
+
+
+
+                const geodataDigitaltvilling_dtBygning = new SceneLayer({
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/DigitalTvilling_DT/SceneServer",
+                        title: "DT-hovedkvarter",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 18
+                        },
+
+                    }
+
+                );
+
                 const geodataDigitaltvilling_gulv = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Gulv/SceneServer",
                         title: "Gulv",
+                        visible: false,
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -852,16 +877,9 @@
                 );
 
 
-
-
-
-
-
-
                 const geodataDigitaltvilling_plan = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_plan/SceneServer",
                         title: "Planskisse",
-                        visible: false,
                         outFields: ["*"],
                         purgeOptions: {
                             displayCount: 1000
@@ -882,6 +900,7 @@
                 const geodataDigitaltvilling_langbord = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_langbord/SceneServer",
                         title: "Langbord",
+                        visible: false,
                         listMode: "hide",
                         outFields: ["*"],
                         purgeOptions: {
@@ -1005,6 +1024,27 @@
 
                 );
 
+                const geodataDigitaltvilling_reception = new SceneLayer({
+                        url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Reception/SceneServer",
+                        title: "Reception",
+                        listMode: "hide",
+                        outFields: ["*"],
+                        purgeOptions: {
+                            displayCount: 1000
+                        },
+                        //renderer: DisTechRendrerPROX,
+                        //popupTemplate: template,
+                        refreshInterval: 0.01,
+                        elevationInfo: {
+                            // elevation mode that will place points on top of the buildings or other SceneLayer 3D objects
+                            mode: "absolute-height",
+                            offset: 2.8
+                        },
+
+                    }
+
+                );
+
                 const geodataDigitaltvilling_Arbeidsplass = new SceneLayer({
                         url: "https://tiles.arcgis.com/tiles/2JyTvMWQSnM2Vi8q/arcgis/rest/services/geodataDigitaltvilling_Arbeidsplass/SceneServer",
                         title: "Arbeidsbord",
@@ -1094,7 +1134,7 @@
                 var map = new Map({
                     basemap: basemap,
                     //ground: "world-elevation",
-                    layers: [geodataDigitaltvilling_yttervegglass, geodataDigitaltvilling_yttervegg, geodataDigitaltvilling_innevegg, geodataDigitaltvilling_tynnvegg, geodataDigitaltvilling_spiler, geodataDigitaltvilling_gulv, Plasser, geodataDigitaltvilling_rom_etg01_booking, personDigitaltvilling, Bygninger_Norge_Oslo_highligted, geodataDigitaltvilling_rom_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
+                    layers: [geodataDigitaltvilling_reception, geodataDigitaltvilling_dtBygning, geodataDigitaltvilling_yttervegglass, geodataDigitaltvilling_yttervegg, geodataDigitaltvilling_innevegg, geodataDigitaltvilling_tynnvegg, geodataDigitaltvilling_spiler, geodataDigitaltvilling_gulv, Plasser, geodataDigitaltvilling_rom_etg01_booking, personDigitaltvilling, Bygninger_Norge_Oslo_highligted, geodataDigitaltvilling_rom_etg01, geodataDigitaltvilling_kursrom_PROX_sensor, Bygninger_Norge_Oslo, geodataDigitaltvilling_plan, geodataDigitaltvilling_Arbeidsplass, geodataDigitaltvilling_Bokhylle, geodataDigitaltvilling_Planter, geodataDigitaltvilling_Soyler, geodataDigitaltvilling_Trapp, geodataDigitaltvilling_WC, geodataDigitaltvilling_langbord],
                     ground: {
                         //surfaceColor: "#2A282B"
                     }
